@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -19,7 +19,7 @@ import { RacaService } from '../raca.service';
 })
 export class RacaDetailsComponent implements OnInit {
 
-  @Input() racaForm: FormGroup;
+  @Input() racaForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   user: User;
@@ -31,7 +31,7 @@ export class RacaDetailsComponent implements OnInit {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _authService: AuthService,
     private _route: ActivatedRoute,
@@ -83,11 +83,11 @@ export class RacaDetailsComponent implements OnInit {
 
   createRacaForm(){
     this.racaForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      raca: new FormControl('', Validators.required),
-      lstRacaLoginInclusao: new FormControl(''),
-      lstRacaLoginAlteracao: new FormControl(''),
-      lstRacaLoginExclusao: new FormControl('')
+      recId: new UntypedFormControl(''),
+      raca: new UntypedFormControl('', Validators.required),
+      lstRacaLoginInclusao: new UntypedFormControl(''),
+      lstRacaLoginAlteracao: new UntypedFormControl(''),
+      lstRacaLoginExclusao: new UntypedFormControl('')
     });
   }
 

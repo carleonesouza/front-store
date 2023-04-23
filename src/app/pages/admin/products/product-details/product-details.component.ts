@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
@@ -19,7 +19,7 @@ import { ProductsService } from '../products.service';
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
 
-  @Input() productForm: FormGroup;
+  @Input() productForm: UntypedFormGroup;
   @ViewChild(MatAccordion) accordion: MatAccordion;
   displayedColumns: string[] = ['position', 'name'];
   editMode: boolean = false;
@@ -36,7 +36,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private _changeDetectorRef: ChangeDetectorRef,
     private _listItemsComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _productsService: ProductsService,
     private _route: ActivatedRoute,
@@ -98,8 +98,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   createProductForm() {
     this.productForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      prodDescricao: new FormControl('', Validators.required),
+      recId: new UntypedFormControl(''),
+      prodDescricao: new UntypedFormControl('', Validators.required),
     });
   }
 

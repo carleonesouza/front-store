@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,7 +16,7 @@ import { ExameService } from '../exame.service';
 })
 export class ExameDetailsComponent implements OnInit {
 
-  @Input() exameForm: FormGroup;
+  @Input() exameForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   creating: boolean = false;
@@ -26,7 +26,7 @@ export class ExameDetailsComponent implements OnInit {
   tipoExames$: any;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _activateRoute: ActivatedRoute,
     private _exameService: ExameService,
@@ -79,8 +79,8 @@ export class ExameDetailsComponent implements OnInit {
 
   createExameForm(){
     this.exameForm = this._formBuilder.group({
-      lstExaDocDescricao: new FormControl(''),
-      lstTipExaRecId: new FormControl('')
+      lstExaDocDescricao: new UntypedFormControl(''),
+      lstTipExaRecId: new UntypedFormControl('')
     });
   }
 

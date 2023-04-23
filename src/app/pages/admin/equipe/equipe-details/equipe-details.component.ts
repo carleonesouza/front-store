@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ import { EquipeService } from '../equipe.service';
 })
 export class EquipeDetailsComponent implements OnInit {
 
-  @Input() equipeForm: FormGroup;
+  @Input() equipeForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   creating: boolean = false;
@@ -24,7 +24,7 @@ export class EquipeDetailsComponent implements OnInit {
   equipe: any;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _activateRoute: ActivatedRoute,
     private _equipeService: EquipeService,
@@ -74,7 +74,7 @@ export class EquipeDetailsComponent implements OnInit {
 
   createEquipeForm(){
     this.equipeForm = this._formBuilder.group({
-      equNome: new FormControl(''),
+      equNome: new UntypedFormControl(''),
     });
   }
 

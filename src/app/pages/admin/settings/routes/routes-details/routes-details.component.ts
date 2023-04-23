@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,7 +20,7 @@ import { RoutesService } from '../routes.service';
 })
 export class RoutesDetailsComponent implements OnInit, OnDestroy {
 
-  @Input() routeForm: FormGroup;
+  @Input() routeForm: UntypedFormGroup;
   @Input() checked: boolean;
   editMode: boolean = false;
   saving: boolean = false;
@@ -36,7 +36,7 @@ export class RoutesDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private _changeDetectorRef: ChangeDetectorRef,
     private _listItemsComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _routesService: RoutesService,
     private _systemsService: SystemsService,
@@ -105,10 +105,10 @@ export class RoutesDetailsComponent implements OnInit, OnDestroy {
 
   createRouteForm() {
     this.routeForm = this._formBuilder.group({
-      roles:  new FormControl(),
-      rota: new FormGroup({
-        route: new FormControl('', Validators.required),
-        sistema: new FormControl('', Validators.required)
+      roles:  new UntypedFormControl(),
+      rota: new UntypedFormGroup({
+        route: new UntypedFormControl('', Validators.required),
+        sistema: new UntypedFormControl('', Validators.required)
       }),
     });
   }
@@ -118,11 +118,11 @@ export class RoutesDetailsComponent implements OnInit, OnDestroy {
   }
 
   get rolesControls(){
-    return (this.routeForm.get('roles') as FormArray).controls;
+    return (this.routeForm.get('roles') as UntypedFormArray).controls;
   }
 
   get systemsControls(){
-    return (this.routeForm.get('rota').get('sistema') as FormArray).controls;
+    return (this.routeForm.get('rota').get('sistema') as UntypedFormArray).controls;
   }
 
 

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -19,7 +19,7 @@ import { SystemsService } from '../systems.service';
 })
 export class SystemDetailsComponent implements OnInit, OnDestroy {
 
-  @Input() systemForm: FormGroup;
+  @Input() systemForm: UntypedFormGroup;
   editMode: boolean = false;
   saving: boolean = false;
   title: string;
@@ -32,7 +32,7 @@ export class SystemDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private _changeDetectorRef: ChangeDetectorRef,
     private _listItemsComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _systemService: SystemsService,
     private _authService: AuthService,
@@ -93,10 +93,10 @@ export class SystemDetailsComponent implements OnInit, OnDestroy {
 
   createSystemForm() {
     this.systemForm = this._formBuilder.group({
-      name: new FormControl('', Validators.required),
-      version: new FormControl(''),
-      prodUrl: new FormControl(''),
-      homologUrl: new FormControl(''),
+      name: new UntypedFormControl('', Validators.required),
+      version: new UntypedFormControl(''),
+      prodUrl: new UntypedFormControl(''),
+      homologUrl: new UntypedFormControl(''),
     });
   }
 

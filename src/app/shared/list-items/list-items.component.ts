@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 import { PageEvent } from '@angular/material/paginator';
 import { MatDrawer } from '@angular/material/sidenav';
@@ -27,7 +27,7 @@ export class ListItemsComponent {
   @Input() listNames: string;
   @Input() drawerMode: 'side' | 'over';
   @Input() mode: FuseDrawerMode;
-  @Input() searchInputControl: FormControl = new FormControl();
+  @Input() searchInputControl: UntypedFormControl = new UntypedFormControl();
   @Input() totalElements: number = 0;
   @Input() pageSize = 0;
   @Input() pageSizeOptions: number[] = [10, 20, 30, 100];

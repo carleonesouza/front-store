@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,7 +17,7 @@ import { ProgramaSaudeService } from '../programa-saude.service';
 })
 export class ProgramaSaudeDetailsComponent implements OnInit {
 
-  @Input() programaSaudeForm: FormGroup;
+  @Input() programaSaudeForm: UntypedFormGroup;
   @Input() checked: boolean;
   editMode: boolean = false;
   title: string;
@@ -27,7 +27,7 @@ export class ProgramaSaudeDetailsComponent implements OnInit {
   programaSaude: any;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _activateRoute: ActivatedRoute,
     private _programaSaudeService: ProgramaSaudeService,
@@ -78,8 +78,8 @@ export class ProgramaSaudeDetailsComponent implements OnInit {
 
   createProgramaSaudeForm(){
     this.programaSaudeForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      progSauDescricao: new FormControl('', Validators.required),
+      recId: new UntypedFormControl(''),
+      progSauDescricao: new UntypedFormControl('', Validators.required),
     });
   }
 

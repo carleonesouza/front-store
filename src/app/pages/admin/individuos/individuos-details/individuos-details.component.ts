@@ -1,7 +1,7 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
   Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Cidade } from 'app/models/cidade';
 import { Escolaridade } from 'app/models/escolaridade';
 import { Estado } from 'app/models/estado';
@@ -43,7 +43,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @Input() individuoForm: FormGroup;
+  @Input() individuoForm: UntypedFormGroup;
 
   editMode: boolean = false;
   saving: boolean = false;
@@ -73,7 +73,7 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _route: ActivatedRoute,
     private _router: Router,
@@ -121,10 +121,10 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
           this.createIndividuoForm();
 
           // Clear the form arrays
-          (this.individuoForm.get('telefones') as FormArray).clear();
-          (this.individuoForm.get('enderecos') as FormArray).clear();
-          (this.individuoForm.get('documentos') as FormArray).clear();
-          (this.individuoForm.get('identificadores') as FormArray).clear();
+          (this.individuoForm.get('telefones') as UntypedFormArray).clear();
+          (this.individuoForm.get('enderecos') as UntypedFormArray).clear();
+          (this.individuoForm.get('documentos') as UntypedFormArray).clear();
+          (this.individuoForm.get('identificadores') as UntypedFormArray).clear();
 
           // Get the Indivíduo
           this.individuo = individuo;
@@ -273,11 +273,11 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   get telefonesControls() {
-    return (this.individuoForm.get('telefones') as FormArray).controls;
+    return (this.individuoForm.get('telefones') as UntypedFormArray).controls;
   }
 
   get identificadoresControls() {
-    return (this.individuoForm.get('identificadores') as FormArray).controls;
+    return (this.individuoForm.get('identificadores') as UntypedFormArray).controls;
   }
 
   get individuoControlsForm(): { [key: string]: AbstractControl } {
@@ -285,11 +285,11 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   get enderecosControls() {
-    return (this.individuoForm.get('enderecos') as FormArray).controls;
+    return (this.individuoForm.get('enderecos') as UntypedFormArray).controls;
   }
 
   get documentosControls() {
-    return (this.individuoForm.get('documentos') as FormArray).controls;
+    return (this.individuoForm.get('documentos') as UntypedFormArray).controls;
   }
 
 
@@ -471,24 +471,24 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
 
   createIndividuoForm() {
     this.individuoForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      password: new FormControl(''),
-      roles: new FormControl(['']),
-      cns: new FormControl(['']),
-      confirmPassword: new FormControl(''),
-      indCpf: new FormControl('', [Validators.required]),
-      indNome: new FormControl([''], [Validators.required]),
-      indEmail: new FormControl([''], [Validators.required, Validators.email]),
+      recId: new UntypedFormControl(''),
+      password: new UntypedFormControl(''),
+      roles: new UntypedFormControl(['']),
+      cns: new UntypedFormControl(['']),
+      confirmPassword: new UntypedFormControl(''),
+      indCpf: new UntypedFormControl('', [Validators.required]),
+      indNome: new UntypedFormControl([''], [Validators.required]),
+      indEmail: new UntypedFormControl([''], [Validators.required, Validators.email]),
       telefones: this._formBuilder.array([this.createTelefoneForms()]),
-      dataNascimento: new FormControl({value: '', disabled: true}, Validators.required),
+      dataNascimento: new UntypedFormControl({value: '', disabled: true}, Validators.required),
       enderecos: this._formBuilder.array([this.createEnderecosForms()]),
-      sexo: new FormControl([''], [Validators.required]),
-      raca: new FormControl([''], [Validators.required]),
-      escolaridade: new FormControl([''], [Validators.required]),
-      genero: new FormControl([''], [Validators.required]),
+      sexo: new UntypedFormControl([''], [Validators.required]),
+      raca: new UntypedFormControl([''], [Validators.required]),
+      escolaridade: new UntypedFormControl([''], [Validators.required]),
+      genero: new UntypedFormControl([''], [Validators.required]),
       documentos: this._formBuilder.array([this.createDocForms()]),
       identificadores: this._formBuilder.array([this.createIdentificadoresForms()]),
-      cliente: new FormControl()
+      cliente: new UntypedFormControl()
       // programaSaude: new FormControl(['']),
       // programaCliente: new FormControl(['']),
       // individuoEquipe: new FormControl([''])
@@ -496,36 +496,36 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   createDocForms() {
-    return new FormGroup({
-      tipoDocId: new FormControl('', Validators.required),
-      indDocNumero: new FormControl('', [Validators.required]),
-      indDocStatus: new FormControl('')
+    return new UntypedFormGroup({
+      tipoDocId: new UntypedFormControl('', Validators.required),
+      indDocNumero: new UntypedFormControl('', [Validators.required]),
+      indDocStatus: new UntypedFormControl('')
     }, {updateOn: 'blur'});
   }
 
   createIdentificadoresForms() {
-    return new FormGroup({
-      recId:new FormControl(''),
-      identificador: new FormControl(''),
-      indIdeStatus: new FormControl('')
+    return new UntypedFormGroup({
+      recId:new UntypedFormControl(''),
+      identificador: new UntypedFormControl(''),
+      indIdeStatus: new UntypedFormControl('')
     });
   }
 
   createTelefoneForms() {
-    return new FormGroup({
-      telefone: new FormControl('', [Validators.required, Validators.maxLength(11)]),
-      indTelStatus: new FormControl('')
+    return new UntypedFormGroup({
+      telefone: new UntypedFormControl('', [Validators.required, Validators.maxLength(11)]),
+      indTelStatus: new UntypedFormControl('')
     });
   }
 
   createEnderecosForms() {
-    return new FormGroup({
-      logradouro: new FormControl([''], Validators.required),
-      cep: new FormControl('', Validators.required),
-      bairro: new FormControl('', Validators.required),
-      cidade: new FormControl('', Validators.required),
-      estado: new FormControl('', Validators.required),
-      indEndStatus: new FormControl('')
+    return new UntypedFormGroup({
+      logradouro: new UntypedFormControl([''], Validators.required),
+      cep: new UntypedFormControl('', Validators.required),
+      bairro: new UntypedFormControl('', Validators.required),
+      cidade: new UntypedFormControl('', Validators.required),
+      estado: new UntypedFormControl('', Validators.required),
+      indEndStatus: new UntypedFormControl('')
 
     });
   }
@@ -551,7 +551,7 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
 
     const addressFormGroup = this._formBuilder.group({ logradouro: [''], cep: [''], bairro: [''], cidade: [''], estado: [''] });
 
-    (this.individuoForm.get('enderecos') as FormArray).push(addressFormGroup);
+    (this.individuoForm.get('enderecos') as UntypedFormArray).push(addressFormGroup);
     // Mark for check
     this._changeDetectorRef.markForCheck();
   }
@@ -560,7 +560,7 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
   removeEnderecoField(index: number): void {
 
     // Get form array for address
-    const addressFormArray = this.individuoForm.get('enderecos') as FormArray;
+    const addressFormArray = this.individuoForm.get('enderecos') as UntypedFormArray;
 
     const endereco = addressFormArray.at(index);
 
@@ -595,7 +595,7 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
     const phoneNumberFormGroup = this._formBuilder.group({ telefone: [''] });
 
     // Add the phone number form group to the phoneNumbers form array
-    (this.individuoForm.get('telefones') as FormArray).push(phoneNumberFormGroup);
+    (this.individuoForm.get('telefones') as UntypedFormArray).push(phoneNumberFormGroup);
     // Mark for check
     this._changeDetectorRef.markForCheck();
   }
@@ -607,7 +607,7 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
    */
   removeTelefoneField(index: number): void {
     // Get form array for phone
-    const phoneNumbersFormArray = this.individuoForm.get('telefones') as FormArray;
+    const phoneNumbersFormArray = this.individuoForm.get('telefones') as UntypedFormArray;
 
     const telefone = phoneNumbersFormArray.at(index);
 
@@ -634,9 +634,9 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   addIdentificadorField() {
-    const identificadoresFormGroup = this._formBuilder.group({ identificador: new FormControl('', Validators.required) });
+    const identificadoresFormGroup = this._formBuilder.group({ identificador: new UntypedFormControl('', Validators.required) });
 
-    (this.individuoForm.get('identificadores') as FormArray).push(identificadoresFormGroup);
+    (this.individuoForm.get('identificadores') as UntypedFormArray).push(identificadoresFormGroup);
     // Mark for check
     this._changeDetectorRef.markForCheck();
   }
@@ -644,7 +644,7 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
   removeIdentificadorField(index: number): void {
 
     // Get form array for identificador
-    const identificadoresFormGroup = this.individuoForm.get('identificadores') as FormArray;
+    const identificadoresFormGroup = this.individuoForm.get('identificadores') as UntypedFormArray;
 
     const identificador = identificadoresFormGroup.at(index);
 
@@ -674,11 +674,11 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
 
   addDocumentoField() {
     const tiposDocumentosFormGroup = this._formBuilder.group({
-      tipoDocId: new FormControl('', Validators.required),
-      indDocNumero: new FormControl('', Validators.required)
+      tipoDocId: new UntypedFormControl('', Validators.required),
+      indDocNumero: new UntypedFormControl('', Validators.required)
     });
 
-    (this.individuoForm.get('documentos') as FormArray).push(tiposDocumentosFormGroup);
+    (this.individuoForm.get('documentos') as UntypedFormArray).push(tiposDocumentosFormGroup);
 
     // Mark for check
     this._changeDetectorRef.markForCheck();
@@ -686,7 +686,7 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
 
   removeDocumentoField(index: number): void {
     // Get form array for Documento
-    const tiposDocumentosFormGroup = this.individuoForm.get('documentos') as FormArray;
+    const tiposDocumentosFormGroup = this.individuoForm.get('documentos') as UntypedFormArray;
 
     const documento = tiposDocumentosFormGroup.at(index);
     if (documento.value?.recId) {
@@ -722,20 +722,20 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
     return item.id || index;
   }
 
-  get enderecos(): FormArray {
-    return this.individuoForm.get('enderecos') as FormArray;
+  get enderecos(): UntypedFormArray {
+    return this.individuoForm.get('enderecos') as UntypedFormArray;
   }
 
-  get documentos(): FormArray {
-    return this.individuoForm.get('documentos') as FormArray;
+  get documentos(): UntypedFormArray {
+    return this.individuoForm.get('documentos') as UntypedFormArray;
   }
 
-  get telefones(): FormArray {
-    return this.individuoForm.get('telefones') as FormArray;
+  get telefones(): UntypedFormArray {
+    return this.individuoForm.get('telefones') as UntypedFormArray;
   }
 
-  get identificadores(): FormArray {
-    return this.individuoForm.get('identificadores') as FormArray;
+  get identificadores(): UntypedFormArray {
+    return this.individuoForm.get('identificadores') as UntypedFormArray;
   }
 
   editAddressSubmit(enderecos): any {
@@ -808,7 +808,7 @@ export class IndividuosDetailsComponent implements OnInit, OnDestroy, AfterViewI
     return ind;
   }
 
-  verifyFormUpdated(formArray: FormArray, individuo: Individuo) {
+  verifyFormUpdated(formArray: UntypedFormArray, individuo: Individuo) {
     const keys = Object.keys(individuo);
     let obj;
     for (const key of keys) {

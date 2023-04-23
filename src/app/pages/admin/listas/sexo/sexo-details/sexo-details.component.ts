@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,7 +18,7 @@ import { SexoService } from '../sexo.service';
 })
 export class SexoDetailsComponent implements OnInit {
 
-  @Input() sexoForm: FormGroup;
+  @Input() sexoForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   user: User;
@@ -28,7 +28,7 @@ export class SexoDetailsComponent implements OnInit {
   sexo: Sexo;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _authService: AuthService,
     private _activateRoute: ActivatedRoute,
@@ -79,11 +79,11 @@ export class SexoDetailsComponent implements OnInit {
 
   createSexoForm(){
     this.sexoForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      sexo: new FormControl('', Validators.required),
-      lstSexoLoginExclusao: new FormControl(''),
-      lstSexoLoginInclusao: new FormControl(''),
-      lstSexoLoginAlteracao: new FormControl('')
+      recId: new UntypedFormControl(''),
+      sexo: new UntypedFormControl('', Validators.required),
+      lstSexoLoginExclusao: new UntypedFormControl(''),
+      lstSexoLoginInclusao: new UntypedFormControl(''),
+      lstSexoLoginAlteracao: new UntypedFormControl('')
     });
   }
 

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
@@ -24,7 +24,7 @@ import { AccountService } from '../account.service';
 })
 export class AccountDetailsComponent implements OnInit, OnDestroy {
 
-  @Input() userForm: FormGroup;
+  @Input() userForm: UntypedFormGroup;
   @ViewChild(MatAccordion) accordion: MatAccordion;
   displayedColumns: string[] = ['position', 'name'];
   editMode: boolean = false;
@@ -44,7 +44,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private _changeDetectorRef: ChangeDetectorRef,
     private _listItemsComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _accountService: AccountService,
     private _rolesService: RolesService,
@@ -143,12 +143,12 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
   createUserForm() {
     this.userForm = this._formBuilder.group({
-      keycloakId: new FormControl(''),
+      keycloakId: new UntypedFormControl(''),
       roles: this._formBuilder.array([this.createFormRoles()]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      fullName: new FormControl('', Validators.required),
-      password: new FormControl(''),
-      confirmPassword: new FormControl('')
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      fullName: new UntypedFormControl('', Validators.required),
+      password: new UntypedFormControl(''),
+      confirmPassword: new UntypedFormControl('')
 
     });
   }
@@ -158,11 +158,11 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   }
 
   get rolesControls() {
-    return (this.userForm.get('roles') as FormArray).controls;
+    return (this.userForm.get('roles') as UntypedFormArray).controls;
   }
 
-  get rolesFormArray(): FormArray {
-    return this.userForm.get('roles') as FormArray;
+  get rolesFormArray(): UntypedFormArray {
+    return this.userForm.get('roles') as UntypedFormArray;
   }
 
   compareFn(c1: any, c2: any): boolean {
@@ -170,8 +170,8 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   }
 
   createFormRoles() {
-    return new FormGroup({
-      role: new FormControl('', Validators.required)
+    return new UntypedFormGroup({
+      role: new UntypedFormControl('', Validators.required)
     });
   }
 
@@ -186,7 +186,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
 
     const roleFormGroup = this._formBuilder.group({ role: '' });
 
-    (this.userForm.get('roles') as FormArray).push(roleFormGroup);
+    (this.userForm.get('roles') as UntypedFormArray).push(roleFormGroup);
     // Mark for check
     this._changeDetectorRef.markForCheck();
   }
@@ -208,7 +208,7 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
   removeRoleField(index: number): void {
 
     // Get form array for address
-    const roleFormArray = this.userForm.get('roles') as FormArray;
+    const roleFormArray = this.userForm.get('roles') as UntypedFormArray;
     const roles = this.user?.realmRoles.filter(item => item !== 'default-roles-evo_api');
 
     const role = roleFormArray.at(index);

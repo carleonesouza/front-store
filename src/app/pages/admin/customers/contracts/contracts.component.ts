@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-contracts',
@@ -8,12 +8,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class ContractsComponent implements OnInit {
 
-  horizontalStepperForm: FormGroup;
+  horizontalStepperForm: UntypedFormGroup;
 
   /**
    * Constructor
    */
-  constructor(private _formBuilder: FormBuilder)
+  constructor(private _formBuilder: UntypedFormBuilder)
   {
   }
 

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -22,7 +22,7 @@ import { RolesService } from '../roles.service';
 })
 export class RoleDetailsComponent implements OnInit, OnDestroy {
 
-  @Input() roleForm: FormGroup;
+  @Input() roleForm: UntypedFormGroup;
   @Input() checked: boolean;
   editMode: boolean = false;
   saving: boolean = false;
@@ -40,7 +40,7 @@ export class RoleDetailsComponent implements OnInit, OnDestroy {
 
   constructor(private _changeDetectorRef: ChangeDetectorRef,
     private _listItemsComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _rolesService: RolesService,
     private _systemsService: SystemsService,
@@ -123,18 +123,18 @@ export class RoleDetailsComponent implements OnInit, OnDestroy {
 
   createRoleForm() {
     this.roleForm = this._formBuilder.group({
-      roles: new FormControl('', Validators.required),
-      rota: new FormGroup({
-        recId: new FormControl(''),
-        route: new FormControl(''),
-        sistema: new FormControl('', Validators.required)
+      roles: new UntypedFormControl('', Validators.required),
+      rota: new UntypedFormGroup({
+        recId: new UntypedFormControl(''),
+        route: new UntypedFormControl(''),
+        sistema: new UntypedFormControl('', Validators.required)
       }),
     });
   }
 
   createSystemForm() {
-    return new FormGroup({
-      system: new FormControl('', Validators.required),
+    return new UntypedFormGroup({
+      system: new UntypedFormControl('', Validators.required),
     });
   }
 
@@ -147,7 +147,7 @@ export class RoleDetailsComponent implements OnInit, OnDestroy {
   }
 
   get systemsControls() {
-    return (this.roleForm.get('systems') as FormArray).controls;
+    return (this.roleForm.get('systems') as UntypedFormArray).controls;
   }
 
 
@@ -159,7 +159,7 @@ export class RoleDetailsComponent implements OnInit, OnDestroy {
 
     const systemsFormArray = this._formBuilder.group({ system: [''] });
 
-    (this.roleForm.get('systems') as FormArray).push(systemsFormArray);
+    (this.roleForm.get('systems') as UntypedFormArray).push(systemsFormArray);
     // Mark for check
     this._changeDetectorRef.markForCheck();
   }
@@ -168,7 +168,7 @@ export class RoleDetailsComponent implements OnInit, OnDestroy {
   removeSystemField(index: number): void {
 
     // Get form array for address
-    const systemsFormArray = this.roleForm.get('systems') as FormArray;
+    const systemsFormArray = this.roleForm.get('systems') as UntypedFormArray;
 
     const system = systemsFormArray.at(index);
 

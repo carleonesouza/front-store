@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,7 +20,7 @@ import { ListEscolaridadeComponent } from '../list-escolaridades/list-escolarida
 })
 export class EscolaridadeDetailsComponent implements OnInit {
 
-  @Input() escolaridadeForm: FormGroup;
+  @Input() escolaridadeForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   user: User;
@@ -30,7 +30,7 @@ export class EscolaridadeDetailsComponent implements OnInit {
   escolaridade: Escolaridade;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemsComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _escolaridadeService: EscolaridadeService,
     private _authService: AuthService,
@@ -82,11 +82,11 @@ export class EscolaridadeDetailsComponent implements OnInit {
 
   createEscolaridadeForm(){
     this.escolaridadeForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      escolaridade: new FormControl('', Validators.required),
-      lstEscLoginAlteracao: new FormControl(''),
-      lstEscLoginInclusao: new FormControl(''),
-      lstEscLoginExclusao: new FormControl('')
+      recId: new UntypedFormControl(''),
+      escolaridade: new UntypedFormControl('', Validators.required),
+      lstEscLoginAlteracao: new UntypedFormControl(''),
+      lstEscLoginInclusao: new UntypedFormControl(''),
+      lstEscLoginExclusao: new UntypedFormControl('')
     });
   }
 

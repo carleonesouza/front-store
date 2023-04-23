@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,7 +17,7 @@ import { ProgramaClienteService } from '../programa-cliente.service';
 })
 export class ProgramaClienteDetailsComponent implements OnInit {
 
-  @Input() programaClienteForm: FormGroup;
+  @Input() programaClienteForm: UntypedFormGroup;
   @Input() checked: boolean;
   editMode: boolean = false;
   title: string;
@@ -27,7 +27,7 @@ export class ProgramaClienteDetailsComponent implements OnInit {
   programaCliente: any;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _activateRoute: ActivatedRoute,
     private _programaClienteService: ProgramaClienteService,
@@ -78,8 +78,8 @@ export class ProgramaClienteDetailsComponent implements OnInit {
 
   createProgramaClienteForm(){
     this.programaClienteForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      progCliDescricao: new FormControl('', Validators.required),
+      recId: new UntypedFormControl(''),
+      progCliDescricao: new UntypedFormControl('', Validators.required),
     });
   }
 

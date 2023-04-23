@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ import { TipoVinculoService } from '../tipo-vinculo.service';
 })
 export class VinculoDetailsComponent implements OnInit {
 
-  @Input() tipoVinculoForm: FormGroup;
+  @Input() tipoVinculoForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   creating: boolean = false;
@@ -24,7 +24,7 @@ export class VinculoDetailsComponent implements OnInit {
   tipoVinculo: any;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _activateRoute: ActivatedRoute,
     private _tipoVinculoService: TipoVinculoService,
@@ -74,8 +74,8 @@ export class VinculoDetailsComponent implements OnInit {
 
   createTipoVinculoForm(){
     this.tipoVinculoForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      lstTipVinDescricao: new FormControl(''),
+      recId: new UntypedFormControl(''),
+      lstTipVinDescricao: new UntypedFormControl(''),
     });
   }
 

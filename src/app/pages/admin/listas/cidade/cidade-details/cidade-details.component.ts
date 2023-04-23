@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,7 +21,7 @@ import { ListCidadesComponent } from '../list-cidades/list-cidades.component';
 })
 export class CidadeDetailsComponent implements OnInit {
 
-  @Input() cidadeForm: FormGroup;
+  @Input() cidadeForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   user: User;
@@ -32,7 +32,7 @@ export class CidadeDetailsComponent implements OnInit {
   estados$: Observable<Estado[]>;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemsComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _cidadeService: CidadeService,
     private _authService: AuthService,
@@ -86,12 +86,12 @@ export class CidadeDetailsComponent implements OnInit {
 
   createCidadeForm() {
     this.cidadeForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      lstCidDescricao: new FormControl('', Validators.required),
-      estado: new FormControl('', Validators.required),
-      lstCidLoginInclusao: new FormControl(''),
-      lstCidLoginAlteracao: new FormControl(''),
-      lstCidLoginExclusao: new FormControl('')
+      recId: new UntypedFormControl(''),
+      lstCidDescricao: new UntypedFormControl('', Validators.required),
+      estado: new UntypedFormControl('', Validators.required),
+      lstCidLoginInclusao: new UntypedFormControl(''),
+      lstCidLoginAlteracao: new UntypedFormControl(''),
+      lstCidLoginExclusao: new UntypedFormControl('')
     });
   }
 

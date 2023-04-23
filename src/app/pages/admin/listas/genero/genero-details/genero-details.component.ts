@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,7 +20,7 @@ import { GeneroService } from '../genero.service';
 })
 export class GeneroDetailsComponent implements OnInit {
 
-  @Input() generoForm: FormGroup;
+  @Input() generoForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   user: User;
@@ -32,7 +32,7 @@ export class GeneroDetailsComponent implements OnInit {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _authService: AuthService,
     private _route: ActivatedRoute,
@@ -87,11 +87,11 @@ export class GeneroDetailsComponent implements OnInit {
 
   createGeneroForm(){
     this.generoForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      genero: new FormControl('', Validators.required),
-      lstGenLoginInclusao: new FormControl(''),
-      lstGenLoginAlteracao: new FormControl(''),
-      lstGenLoginExclusao: new FormControl('')
+      recId: new UntypedFormControl(''),
+      genero: new UntypedFormControl('', Validators.required),
+      lstGenLoginInclusao: new UntypedFormControl(''),
+      lstGenLoginAlteracao: new UntypedFormControl(''),
+      lstGenLoginExclusao: new UntypedFormControl('')
     });
   }
 

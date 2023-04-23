@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,7 +21,7 @@ import { ListEstadosComponent } from '../list-estados/list-estados.component';
 })
 export class EstadoDetailsComponent implements OnInit {
 
-  @Input() estadoForm: FormGroup;
+  @Input() estadoForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   user: User;
@@ -33,7 +33,7 @@ export class EstadoDetailsComponent implements OnInit {
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemsComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _authService: AuthService,
     private _route: ActivatedRoute,
@@ -89,12 +89,12 @@ export class EstadoDetailsComponent implements OnInit {
 
   createEstadoForm(){
     this.estadoForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      nome: new FormControl('', Validators.required),
-      sigla: new FormControl('', Validators.required),
-      lstEstLoginInclusao: new FormControl(''),
-      lstEstLoginAlteracao: new FormControl(''),
-      lstEstLoginExclusao: new FormControl('')
+      recId: new UntypedFormControl(''),
+      nome: new UntypedFormControl('', Validators.required),
+      sigla: new UntypedFormControl('', Validators.required),
+      lstEstLoginInclusao: new UntypedFormControl(''),
+      lstEstLoginAlteracao: new UntypedFormControl(''),
+      lstEstLoginExclusao: new UntypedFormControl('')
     });
   }
 

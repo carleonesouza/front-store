@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ import { TipoDocumentoService } from '../tipo-documento.service';
 })
 export class TipoDocumentoDetailsComponent implements OnInit {
 
-  @Input() tipoDocumentoForm: FormGroup;
+  @Input() tipoDocumentoForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   creating: boolean = false;
@@ -24,7 +24,7 @@ export class TipoDocumentoDetailsComponent implements OnInit {
   tipoDocumento: any;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _activateRoute: ActivatedRoute,
     private _tipoDocumentoService: TipoDocumentoService,
@@ -74,7 +74,7 @@ export class TipoDocumentoDetailsComponent implements OnInit {
 
   createTipoDocumentoForm(){
     this.tipoDocumentoForm = this._formBuilder.group({
-      lstTipDocDescricao: new FormControl(''),
+      lstTipDocDescricao: new UntypedFormControl(''),
     });
   }
 

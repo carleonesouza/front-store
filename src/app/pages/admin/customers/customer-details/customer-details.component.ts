@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -26,7 +26,7 @@ import { CustomersService } from '../customers.service';
 export class CustomerDetailsComponent implements OnInit, OnDestroy{
 
 
-  @Input() clienteForm: FormGroup;
+  @Input() clienteForm: UntypedFormGroup;
   @Input() checked: boolean;
   editMode: boolean = false;
   title: string;
@@ -42,7 +42,7 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy{
 
   constructor(private _changeDetectorRef: ChangeDetectorRef,
     private _listItemsComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _contractsService: ContractsService,
     private _clientesService: CustomersService,
@@ -106,11 +106,11 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy{
 
   createClientForm() {
     return this.clienteForm = this._formBuilder.group({
-      recId: new FormControl(''),
-      nome: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      cnpj: new FormControl('', Validators.required),
-      observacao: new FormControl(''),
+      recId: new UntypedFormControl(''),
+      nome: new UntypedFormControl('', Validators.required),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      cnpj: new UntypedFormControl('', Validators.required),
+      observacao: new UntypedFormControl(''),
       contrato: this._formBuilder.array([this.createContractForm()]),
     });
   }
@@ -118,18 +118,18 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy{
 
   createContractForm() {
     return this._formBuilder.group({
-      contDescricao: new FormControl('', Validators.required),
-      ativo: new FormControl(''),
-      numero: new FormControl('', Validators.required),
-      inicioVigencia: new FormControl({ value: '', disabled: true }, [Validators.required]),
-      terminoVigencia: new FormControl({ value: '', disabled: true }, [Validators.required]),
-      observacao: new FormControl(''),
+      contDescricao: new UntypedFormControl('', Validators.required),
+      ativo: new UntypedFormControl(''),
+      numero: new UntypedFormControl('', Validators.required),
+      inicioVigencia: new UntypedFormControl({ value: '', disabled: true }, [Validators.required]),
+      terminoVigencia: new UntypedFormControl({ value: '', disabled: true }, [Validators.required]),
+      observacao: new UntypedFormControl(''),
     });
   }
 
   createFormProduct() {
     return this._formBuilder.group({
-      produto: new FormControl('')
+      produto: new UntypedFormControl('')
     });
   }
 
@@ -139,20 +139,20 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy{
   }
 
   contratoProduto(index = 0) {
-    return (this.contatos().at(index).get('produto') as FormArray).controls;
+    return (this.contatos().at(index).get('produto') as UntypedFormArray).controls;
   }
 
-  contratoProdutoArray(index = 0): FormArray {
-    return this.contatos().at(index).get('produto') as FormArray;
+  contratoProdutoArray(index = 0): UntypedFormArray {
+    return this.contatos().at(index).get('produto') as UntypedFormArray;
   }
 
 
   get contractControls() {
-    return (this.clienteForm.get('contrato') as FormArray).controls;
+    return (this.clienteForm.get('contrato') as UntypedFormArray).controls;
   }
 
-  contatos(): FormArray {
-    return this.clienteForm.get('contrato') as FormArray;
+  contatos(): UntypedFormArray {
+    return this.clienteForm.get('contrato') as UntypedFormArray;
   }
 
   compareFn(c1: any, c2: any): boolean {
@@ -171,7 +171,7 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy{
 
     const contractFormGroup = this.createContractForm();
 
-    (this.clienteForm.get('contrato') as FormArray).push(contractFormGroup);
+    (this.clienteForm.get('contrato') as UntypedFormArray).push(contractFormGroup);
     // Mark for check
     this._changeDetectorRef.markForCheck();
   }
@@ -180,7 +180,7 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy{
   removeContractField(index: number): void {
 
     // Get form array for address
-    const contractFormArray = this.clienteForm.get('contrato') as FormArray;
+    const contractFormArray = this.clienteForm.get('contrato') as UntypedFormArray;
 
     const cliente = contractFormArray.at(index);
     // Remove the Endereço field

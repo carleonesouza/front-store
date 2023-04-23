@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,7 +15,7 @@ import { CondicaoClinicaService } from '../condicao-clinica.service';
 })
 export class CondicaoClinicaDetailsComponent implements OnInit {
 
-  @Input() condicaoClinicaForm: FormGroup;
+  @Input() condicaoClinicaForm: UntypedFormGroup;
   editMode: boolean = false;
   title: string;
   creating: boolean = false;
@@ -24,7 +24,7 @@ export class CondicaoClinicaDetailsComponent implements OnInit {
   condicaoClinica: any;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef, private _listItemComponent: ListItemsComponent,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     public _snackBar: MatSnackBar,
     private _activateRoute: ActivatedRoute,
     private _condicaoClinicaService: CondicaoClinicaService,
@@ -74,9 +74,9 @@ export class CondicaoClinicaDetailsComponent implements OnInit {
 
   createCondicaoClinicaoForm(){
     this.condicaoClinicaForm = this._formBuilder.group({
-      lstConCliDescricao: new FormControl(''),
-      lstConCliCategoria: new FormControl(''),
-      lstConCliPalavraChave: new FormControl(''),
+      lstConCliDescricao: new UntypedFormControl(''),
+      lstConCliCategoria: new UntypedFormControl(''),
+      lstConCliPalavraChave: new UntypedFormControl(''),
     });
   }
 
