@@ -1,0 +1,84 @@
+<div class="flex flex-col flex-auto min-w-48">
+
+    <!-- Header -->
+    <div class="bg-card">
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8">
+            <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-8 sm:my-12">
+                <!-- Avatar and name -->
+                <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-5 sm:my-12"><div class="flex flex-auto items-center min-w-0"><div class="flex-0 w-16 h-16 rounded-full overflow-hidden"><img src="assets/images/logo/logo.svg" class="w-full h-full object-cover"></div><div class="flex flex-col min-w-0 ml-4"><div class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate ng-star-inserted">  Seja bem vindo, Juan Gusmão</div><!----><!----><div class="flex items-center"><mat-icon role="img" class="mat-icon notranslate icon-size-5 mat-icon-no-color" aria-hidden="true" data-mat-icon-type="svg" data-mat-icon-name="bell" data-mat-icon-namespace="heroicons_solid"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" fit="" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" focusable="false">
+                    <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
+                </svg></mat-icon><div class="ml-1.5 leading-6 truncate text-secondary">Seu relatório de saúde em um só lugar</div></div></div></div>               
+                            </div>
+            <div class="grid auto-cols-max grid-flow-col gap-x-8 -mr-16 py-3 px-8 rounded-l-2xl bg-accent dark"><div class="place-self-center w-24"><img src="assets/images/logo/logo.svg" class="w-24"></div><div class="pl-10 border-l text-md"><div class="font-medium"></div><div> </div><div>todos os seus dados são protegidos</div><div>o relatório é gerado a partir</div><div>de atendimentos prévios</div><div>clique aqui para salvar</div></div></div>                <button class="fuse-mat-button-small w-half mt-3"
+            mat-flat-button
+            [color]="'primary'">
+            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-circle-down'"></mat-icon>
+        </button></div>
+            <!-- Project selector -->
+            <div class="relative flex self-start pt-2 pb-1 pl-5 pr-4 cursor-pointer overflow-hidden rounded-t-xl border border-b-0 bg-default"
+                matRipple [matMenuTriggerFor]="projectsMenu">
+                
+                <div class="flex items-center">
+                    <div class="overflow-hidden">
+                        <div class="font-medium leading-6 truncate">{{selectedClient}}</div>
+                    </div>
+                    <div class="flex items-center justify-center pl-2">
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:chevron-down'"></mat-icon>
+                        <mat-tab label="selecione o atendimento"></mat-tab>
+                    </div>
+                </div>
+                <mat-menu #projectsMenu="matMenu" [xPosition]="'before'">
+                    <button mat-menu-item (click)="selectedClient='Atendimento dia 07/05/2021'">Atendimento dia 07/05/2021
+                    </button>
+                    <button mat-menu-item (click)="selectedClient='Atendimento dia 07/04/2021'">Atendimento dia 07/04/2021
+                    </button>
+                    <button mat-menu-item (click)="selectedClient='Atendimento dia 17/02/2021'">Atendimento dia 17/02/2021
+                    </button>
+                    <button mat-menu-item (click)="selectedClient='Atendimento dia 10/01/2021'">Atendimento dia 10/01/2021
+                    </button>
+                </mat-menu>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
+        <div class="w-full max-w-screen-xl mx-auto">
+            <!-- Tabs -->
+            <mat-tab-group class="sm:px-2" [animationDuration]="'0'">
+
+                <!-- Home -->
+                <mat-tab label="Saúde pessoal">
+                    <ng-template matTabContent>
+                        Data: {{currentDate}}
+
+                        <br />
+
+                        <app-riscos-gerais></app-riscos-gerais>
+
+                    </ng-template>
+                </mat-tab>
+
+                <!-- NPS -->
+                <mat-tab label="Saúde por atendimentos">
+                    <ng-template matTabContent>
+                        Data: {{currentDate}}
+                        <br />
+                        <app-saude-individuo></app-saude-individuo>
+                    </ng-template>
+                </mat-tab>
+
+                <!-- Equipes -->
+                <mat-tab label="dicas personalizadas">
+                    <ng-template matTabContent>
+                        Data: {{currentDate}}
+                        <br/>
+                
+                    </ng-template>
+                </mat-tab>
+
+            </mat-tab-group>
+        </div>
+    </div>
+
+</div>

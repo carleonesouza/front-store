@@ -1,0 +1,973 @@
+<div class="flex flex-col w-full">
+
+    <ng-container *ngIf="individuo$ && !loading; else noIndividuo">
+        <!-- View mode -->
+        <ng-container *ngIf="!editMode && !creating">
+
+            <!-- Header -->
+            <div class="relative w-full h-40 sm:h-48 px-8 sm:px-12 bg-accent-100 dark:bg-accent-700">
+                <!-- Background -->
+                <ng-container>
+                    <img class="absolute inset-0 object-cover w-full h-full">
+                </ng-container>
+                <!-- Close button -->
+                <div class="flex items-center justify-end w-full max-w-3xl mx-auto pt-6">
+                    <button mat-icon-button (click)="closeDrawer()" [matTooltip]="'Fechar'" [routerLink]="['./']">
+                        <mat-icon class="text-black" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Indivíduo -->
+            <div class="relative flex flex-col flex-auto items-center p-6 pt-0 sm:p-12 sm:pt-0" *ngIf="individuo">
+                <div class="w-full max-w-3xl">
+
+                    <!-- Avatar and actions -->
+                    <div class="flex flex-auto items-end -mt-16">
+                        <!-- Avatar -->
+                        <div
+                            class="flex items-center justify-center w-32 h-32 rounded-full overflow-hidden ring-4 ring-bg-card">
+
+                            <div
+                                class="flex items-center justify-center w-full h-full rounded overflow-hidden uppercase text-8xl font-bold leading-none bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-200">
+                                {{individuo.indNome.charAt(0)}}
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                        <div class="flex items-center ml-auto mb-1">
+                            <button mat-raised-button [color]="'primary'" [matTooltip]="'Editar'"
+                                (click)="toggleEditMode(true)">
+                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-alt'"></mat-icon>
+                                <span class="ml-2">Editar</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Name -->
+                    <div class="mt-3 text-4xl font-bold truncate">{{individuo.indNome}}</div>
+                    <div class="mt-6">
+                        <mat-chip-list aria-label="Fish selection">
+                            <mat-chip *ngIf="individuo.status === 1" class="ind-active">Ativo</mat-chip>
+                            <mat-chip *ngIf="individuo.status === 2" class="ind-suspended">Inativo</mat-chip>
+                            <mat-chip *ngIf="individuo.status === 0" class="ind-deactived">Removido</mat-chip>
+                        </mat-chip-list>
+                    </div>
+
+                    <div class="mt-6 w-full">
+                        <h3 class="text-3xl">Dados de Cadastrais</h3>
+                    </div>
+                    <!-- Birthday -->
+                    <ng-container>
+                        <div
+                            class="grid grid-flow-col grid-cols-1 grid-rows-2 md:grid-flow-col gap-2 mt-6 justify-center items-center">
+                            <div class="p-2"><span class="font-bold">Data Nascimento: </span>{{individuo.dataNascimento | date:'dd/MM/yyyy'}}</div>
+                            <div class="p-2 mb-2 mt-2"><span class="font-bold">Sexo: </span>{{individuo.sexo.sexo }}
+                            </div>
+                            <div class="p-2 mb-2"><span class="font-bold">Gênero: </span>{{individuo.genero.genero }}
+                            </div>
+                            <div class="p-2 mb-2 mt-2"><span class="font-bold">Escolaridade:
+                                </span>{{individuo.escolaridade.escolaridade }}</div>
+                            <div class="p-2 w-full mb-2"><span class="font-bold">Raça: </span>{{individuo.raca.raca }}
+                            </div>
+                        </div>
+
+                    </ng-container>
+
+
+                    <div class="mt-6 w-full">
+                        <h3 class="text-3xl">Contatos</h3>
+                    </div>
+
+                    <div class="flex flex-col mt-4 pt-3 space-y-2">
+                        <!-- Email -->
+                        <ng-container>
+                            <div class="flex">
+                                <div class="min-w-0 space-y-1 w-full">
+                                    <ng-container>
+                                        <div
+                                            class="flex items-center leading-6 w-full p-3 border-4 border-light-blue-500 border-opacity-75 rounded-lg">
+                                            <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:mail'"></mat-icon>
+                                            <a class="hover:underline text-primary-500"
+                                                [href]="'mailto:' +individuo.indEmail" target="_blank">
+                                                {{individuo.indEmail}}
+                                            </a>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <!-- Phone -->
+                        <ng-container *ngIf="individuo.telefones.length">
+                            <div class="flex w-full mb-4 pb-3">
+                                <div class="min-w-0 space-y-1 w-full">
+                                    <ng-container *ngFor="let telefone of individuo.telefones; trackBy: trackByFn">
+                                        <div
+                                            class="flex items-center leading-6 w-full p-3 border-4 border-light-blue-500 border-opacity-75 rounded-lg">
+                                            <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:phone'"></mat-icon>
+                                            <div class="font-mono">{{telefone.telefone | mask:'(00) 0 0000-0000'}}</div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <div class="mt-6 w-full">
+                            <h3 class="text-3xl">Documentos e Identificadores</h3>
+                        </div>
+                        <div>
+                            <div class="grid grid-cols-2 gap-4 mt-3">
+                                <div class="ml-6 space-y-1 4xl font-semibold">Documentos:</div>
+                                <div class="4xl font-semibold">Identificadores: </div>
+
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="ml-8 mt-3">
+                                    <ng-container *ngFor="let documento of individuo.documentos; let i = index;">
+                                        <div class="flex flex-col ">
+                                            <ng-conteiner
+                                                *ngIf="documento.tipoDocId.tipoDocumento === 'CPF' ;else NoCpfContent">
+                                                <div class="p-2"><span
+                                                        class="font-bold">{{documento.tipoDocId.tipoDocumento}}:
+                                                    </span>
+                                                    {{documento.indDocNumero | mask:'000.000.000-00' }}</div>
+                                            </ng-conteiner>
+                                            <ng-template #NoCpfContent>
+                                                <div class="p-2"><span
+                                                        class="font-bold">{{documento.tipoDocId.tipoDocumento}}:
+                                                    </span>
+                                                    {{documento.indDocNumero}}</div>
+                                            </ng-template>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div class="mt-3">
+                                    <ng-container
+                                        *ngFor="let identificador of individuo.identificadores; let i = index;">
+                                        <div>
+                                            {{identificador.identificador}}
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="mt-6 w-full">
+                            <h3 class="text-3xl">Clientes Associados</h3>
+                        </div>
+
+                        <ng-container>
+                            <div class="flex">
+                                <div class="min-w-0 space-y-1 w-full">
+                                    <ng-container>
+                                        <div
+                                            class="flex items-center leading-6 w-full p-3 border-4 border-light-blue-500 border-opacity-75 rounded-lg">
+                                            <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:suite_case'"></mat-icon>
+                                            <div class="font-mono">Teste</div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                        <!-- Address -->
+                        <ng-container *ngIf="individuo.enderecos">
+                            <div class="mt-6 w-full">
+                                <h3 class="text-3xl">Endereços</h3>
+                            </div>
+                            <div class="flex sm:items-center w-full mt-3">
+                                <div class="space-y-4 w-full">
+                                    <ng-container
+                                        *ngFor="let endereco of individuo.enderecos; let i = index; let first = first; let last = last; trackBy: trackByFn">
+                                        <!-- Endereços -->
+                                        <div
+                                            class="flex flex-col md:flex-row space-x-4 leading-6 w-full p-3 border-4 border-light-blue-500 border-opacity-75 rounded-lg">
+                                            <mat-icon class="mr-2" [svgIcon]="'heroicons_outline:location-marker'">
+                                            </mat-icon>
+                                            <div class="ml-4 md:ml-2">{{endereco.logradouro}}</div>
+                                            <div><span class="font-bold">CEP: </span>{{endereco.cep |
+                                                mask:'00.000-000'}}</div>
+                                            <div><span class="font-bold">Bairro: </span>{{endereco.bairro}}</div>
+                                            <div><span class="font-bold">Cidade:
+                                                </span>{{endereco.cidade.lstCidDescricao}}</div>
+                                            <div><span class="font-bold">Estado:
+                                                </span>{{endereco.cidade.estado.sigla}}</div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- Edit mode -->
+        <ng-container *ngIf="editMode || creating">
+            <!-- Header -->
+            <div class="relative w-full h-40 sm:h-48 px-8 sm:px-12 bg-accent-100 dark:bg-accent-700">
+
+                <!-- Close button -->
+                <div class="flex items-center justify-end w-full max-w-3xl mx-auto pt-6">
+                    <button mat-icon-button (click)="closeDrawer()" [matTooltip]="'Fechar'" [routerLink]="['./']">
+                        <mat-icon class="text-black" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+                    </button>
+                </div>
+                <div>
+                    <h2 class="text-4xl">{{title}}</h2>
+                </div>
+            </div>
+
+            <!-- Individuo form -->
+            <div class="relative flex flex-col flex-auto">
+                <div class="flex flex-col justify-center items-center w-full p-6" *ngIf="saving">
+                    <ng-container>
+                        <div>
+                            <h3 class="text-3xl loader">Salvando dados
+                                <span class="dot dot-1"></span>
+                                <span class="dot dot-2"></span>
+                                <span class="dot dot-3"></span>
+                                <span class="dot dot-4"></span>
+                            </h3>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <form [formGroup]="individuoForm" (ngSubmit)="onSubmit()" class="px-2 sm:px-7" novalidate *ngIf="!saving">
+
+                    <div class="mt-6 w-full">
+                        <h3 class="text-3xl">Identificação</h3>
+                    </div>
+                    <!-- Identificação -->
+                    <fuse-card class="flex flex-col w-full px-8 py-6 pb-4 shadow-xl" #fuseCard>
+                        <div class="mt-12 w-full">
+                            <mat-form-field class="w-full">
+                                <mat-label class="text-lg font-bold">Nome Completo</mat-label>
+                                <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                    [svgIcon]="'heroicons_solid:user-circle'">
+                                </mat-icon>
+                                <input matInput [formControl]="individuoControlsForm.indNome"
+                                    [placeholder]="'Nome Completo'" [spellcheck]="false">
+                                <mat-error
+                                    *ngIf="individuoControlsForm.indNome.invalid && individuoControlsForm.indNome.touched || individuoControlsForm.indNome.dirty ">
+                                    Digite o nome completo
+                                </mat-error>
+                            </mat-form-field>
+
+                        </div>
+                        <div class="mt-6 flex flex-wrap">
+                            <div class="flex-auto mr-2">
+                                <mat-form-field appearance="fill" class="w-full">
+                                    <mat-label class="text-lg font-bold">CPF
+                                    </mat-label>
+                                    <input formControlName="indCpf" matInput
+                                        [placeholder]="'Número do Documento'" [spellcheck]="false" mask="000.000.000-00" appCpfValidator>
+                                    <mat-error
+                                        *ngIf="individuoForm.get('indCpf').hasError('valido') && (individuoControlsForm.indCpf.touched || individuoControlsForm.indCpf.dirty)"
+                                        class="cross-validation-error-message alert">
+                                        CPF Inválido!
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex-auto mr-2">
+                                <mat-form-field appearance="fill" class="w-full">
+                                    <mat-label class="text-lg font-bold">Carteira Nacional de Saúde
+                                    </mat-label>
+                                    <input formControlName="cns" matInput [placeholder]="'Número do Documento'"
+                                        [spellcheck]="false">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex flex-wrap">
+                            <div class="flex-auto mr-2">
+                                <mat-form-field class="w-full">
+                                    <mat-label class="text-lg font-bold">Data de Nascimento</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:cake'">
+                                    </mat-icon>
+                                    <input matInput [formControl]="individuoControlsForm.dataNascimento"
+                                        [matDatepicker]="birthdayDatepicker" [placeholder]="'Data de Nascimento'"(dateChange)="addEvent('change', $event)"/>
+                                    <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker">
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker disabled="false" #birthdayDatepicker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="flex-auto">
+                                <mat-form-field appearance="fill" class="w-full">
+                                    <mat-label class="text-lg font-bold">Sexo</mat-label>
+                                    <mat-select [formControl]="individuoControlsForm.sexo" [compareWith]="compareFn">
+                                        <mat-option *ngFor="let sexo of sexos$ | async" [value]="sexo">
+                                            {{ sexo.sexo }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="mt-6 flex flex-wrap">
+                            <div class="flex-auto mr-2">
+                                <mat-form-field appearance="fill" class="w-full">
+                                    <mat-label class="text-lg font-bold">Gênero</mat-label>
+                                    <mat-select [formControl]="individuoControlsForm.genero" [compareWith]="compareFn">
+                                        <mat-option *ngFor="let genero of generos$ | async" [value]="genero">
+                                            {{ genero.genero }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex-auto">
+                                <mat-form-field appearance="fill" class="w-full">
+                                    <mat-label class="text-lg font-bold">Raça</mat-label>
+                                    <mat-select [formControl]="individuoControlsForm.raca" [compareWith]="compareFn">
+                                        <mat-option *ngFor="let raca of racas$ | async" [value]="raca">
+                                            {{ raca.raca }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex">
+                            <mat-form-field appearance="fill" class="w-full">
+                                <mat-label class="text-lg font-bold">Escolaridade</mat-label>
+                                <mat-select [formControl]="individuoControlsForm.escolaridade"
+                                    [compareWith]="compareFn">
+                                    <mat-option *ngFor="let escolaridade of escolaridades$ | async"
+                                        [value]="escolaridade">
+                                        {{ escolaridade.escolaridade }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="mt-6 flex">
+                            <mat-form-field appearance="fill" class="w-full">
+                                <mat-label class="text-lg font-bold">Perfil</mat-label>
+                                <mat-select [formControl]="individuoControlsForm.roles" [compareWith]="compareFn">
+                                    <mat-option *ngFor="let role of roles$ | async" [value]="role">
+                                        {{ role.roleName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </fuse-card>
+
+                    <!--Tipo Documento-->
+                    <div class="mt-6">
+                        <div class="space-y-4">
+                            <ng-container formArrayName="documentos"
+                                *ngFor="let documento of documentosControls; let i = index; let first = first; let last = last; trackBy: trackByFn">
+                                <div class="relative flex">
+                                    <fuse-card class="flex flex-col w-full px-8 py-6 pb-4 shadow-xl" #fuseCard
+                                        [ngClass]="{'bg-removed': documento.get('indDocStatus')?.value === 0, 'bg-alert': documento.get('indDocStatus')?.value === 2}">
+
+                                        <div class="mt-2">
+                                            <ng-container [formGroup]="documento">
+                                                <div class="flex flex-col justify-end sm:flex-row sm:items-center w-full"
+                                                    *ngIf="individuo">
+                                                    <div class="hidden sm:flex flex-auto"></div>
+                                                    <div class="flex justify-end">
+                                                        <div class="px-3 mr-1 -ml-2 sm:ml-0"
+                                                            *ngIf="documento.get('indDocStatus')?.value === 2">
+                                                            <mat-icon class="color-alert" matTooltip="Inativo"
+                                                                aria-hidden="true"
+                                                                svgIcon="mat_outline:remove_moderator">
+                                                            </mat-icon>
+                                                        </div>
+                                                        <div class="px-3 mr-1 -ml-2 sm:ml-0"
+                                                            *ngIf="documento.get('indDocStatus')?.value === 0">
+                                                            <mat-icon color="warn" matTooltip="Removido"
+                                                                aria-hidden="true" svgIcon="mat_outline:gpp_maybe">
+                                                            </mat-icon>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col sm:flex-row sm:items-center w-full">
+                                                    <div class="flex items-center w-full">
+                                                        <div class="w-full mr-2">
+                                                            <mat-form-field appearance="fill" class="w-full">
+                                                                <mat-label class="text-lg font-bold">Tipo Documento
+                                                                </mat-label>
+                                                                <mat-select formControlName="tipoDocId"
+                                                                    [compareWith]="compareFn"
+                                                                    (selectionChange)="docSelected($event)">
+                                                                    <mat-option *ngFor="let doc of documentos$ | async "
+                                                                        [value]="doc">
+                                                                        {{ doc.tipoDocumento}}
+                                                                    </mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+                                                            <div *ngIf="tipoDoc">
+                                                                <mat-error
+                                                                    *ngIf="documento.get('indDocNumero').hasError('valido') && (documento.touched || documento.dirty)"
+                                                                    class="cross-validation-error-message alert">
+                                                                    *
+                                                                </mat-error>
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-full">
+                                                            <mat-form-field appearance="fill" class="w-full">
+                                                                <mat-label class="text-lg font-bold">Número do Documento
+                                                                </mat-label>
+                                                                <input formControlName="indDocNumero" matInput
+                                                                    (keyup)="getDocValue($event)"
+                                                                    [placeholder]="'Número do Documento'"
+                                                                    [spellcheck]="false" appCpfValidator>
+                                                                <mat-error
+                                                                    *ngIf="tipoDoc && documento.get('indDocNumero').hasError('valido') && (documento.touched || documento.dirty)"
+                                                                    class="cross-validation-error-message alert">
+                                                                    CPF Inválido!
+                                                                </mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col sm:flex-row sm:items-center">
+
+                                                    <div class="hidden sm:flex flex-auto"></div>
+                                                    <div class="flex items-center">
+                                                        <!-- Remove TipoDocumento-->
+                                                        <div class="px-3 mr-1 -ml-2 sm:ml-0">
+                                                            <ng-container *ngIf="!(first && last)">
+                                                                <div class="flex items-center">
+                                                                    <button class="w-8 h-8 min-h-8" mat-icon-button
+                                                                        type="button" (click)="removeDocumentoField(i)"
+                                                                        matTooltip="Remover"
+                                                                        [ngClass]="{'hidden': documento.get('indDocStatus')?.value === 0}">
+                                                                        <mat-icon class="icon-size-5" [color]="'warn'"
+                                                                            [svgIcon]="'heroicons_solid:trash'">
+                                                                        </mat-icon>
+                                                                    </button>
+                                                                </div>
+                                                            </ng-container>
+                                                        </div>
+                                                        <!-- Inativar Documento-->
+                                                        <div class="px-3 mr-1 -ml-2 sm:ml-0">
+                                                            <ng-container *ngIf="!(first && last)">
+                                                                <mat-slide-toggle class="mt-2" [color]="'warn'"
+                                                                    [checked]=""
+                                                                    (change)="desativaDocumento($event, documento)"
+                                                                    [matTooltip]="'Inativar'"
+                                                                    [ngClass]="{'hidden': documento.get('indDocStatus')?.value === 0}">
+                                                                </mat-slide-toggle>
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </fuse-card>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+                            (click)="addDocumentoField()">
+                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                            <span class="ml-2 font-medium text-secondary group-hover:underline">Adicionar Outro
+                                Documento</span>
+                        </div>
+                    </div>
+
+                    <!--Identificador-->
+                    <div class="mt-6">
+                        <div class="space-y-4">
+                            <ng-container formArrayName="identificadores"
+                                *ngFor="let identificador of identificadoresControls; let i = index; let first = first; let last = last; trackBy: trackByFn">
+                                <div class="relative flex">
+                                    <fuse-card class="flex flex-col w-full px-8 py-6 pb-4 shadow-xl" #fuseCard
+                                        [ngClass]="{'bg-removed': identificador.get('indIdeStatus')?.value === 0, 'bg-alert': identificador.get('indIdeStatus')?.value === 2}">
+                                        <div class="mt-2">
+                                            <ng-container [formGroup]="identificador">
+                                                <div class="flex flex-col justify-end sm:flex-row sm:items-center w-full"
+                                                    *ngIf="individuo">
+                                                    <div class="hidden sm:flex flex-auto"></div>
+                                                    <div class="flex justify-end">
+                                                        <div class="px-3 mr-1 -ml-2 sm:ml-0"
+                                                            *ngIf="identificador.get('indIdeStatus')?.value === 2">
+                                                            <mat-icon class="color-alert" matTooltip="Inativo"
+                                                                aria-hidden="true"
+                                                                svgIcon="mat_outline:remove_moderator">
+                                                            </mat-icon>
+                                                        </div>
+                                                        <div class="px-3 mr-1 -ml-2 sm:ml-0"
+                                                            *ngIf="identificador.get('indIdeStatus')?.value === 0">
+                                                            <mat-icon color="warn" matTooltip="Removido"
+                                                                aria-hidden="true" svgIcon="mat_outline:gpp_maybe">
+                                                            </mat-icon>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <mat-form-field class="flex-auto w-full">
+                                                    <mat-label class="text-lg font-bold">Identificador</mat-label>
+                                                    <input matInput formControlName="identificador"
+                                                        [placeholder]="'identificador'">
+                                                </mat-form-field>
+                                                <div class="flex flex-col sm:flex-row sm:items-center mx-6 sm:mx-8">
+
+                                                    <div class="hidden sm:flex flex-auto"></div>
+                                                    <div class="flex items-center mt-4 sm:mt-0">
+                                                        <!-- Remove identificador -->
+                                                        <div class="px-3 mr-1 -ml-2 sm:ml-0">
+                                                            <ng-container *ngIf="!(first && last)">
+                                                                <div class="flex items-center w-10 pl-2">
+                                                                    <button class="w-8 h-8 min-h-8" mat-icon-button
+                                                                        type="button"
+                                                                        (click)="removeIdentificadorField(i)"
+                                                                        matTooltip="Remove"
+                                                                        [ngClass]="{'hidden': identificador.get('indIdeStatus')?.value === 0}">
+                                                                        <mat-icon class="icon-size-5" [color]="'warn'"
+                                                                            [svgIcon]="'heroicons_solid:trash'">
+                                                                        </mat-icon>
+                                                                    </button>
+                                                                </div>
+                                                            </ng-container>
+                                                        </div>
+                                                        <!-- Inativar Identificador-->
+                                                        <div class=" px-3 mr-1 -ml-2 sm:ml-0">
+                                                            <ng-container *ngIf="!(first && last)">
+                                                                <mat-slide-toggle class="mt-2" [color]="'warn'"
+                                                                    [checked]=""
+                                                                    (change)="desativaIdentificador($event, identificador)"
+                                                                    [matTooltip]="'Inativar'"
+                                                                    [ngClass]="{'hidden': identificador.get('indIdeStatus')?.value === 0}">
+                                                                </mat-slide-toggle>
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </fuse-card>
+                                </div>
+                            </ng-container>
+                        </div>
+                        <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+                            (click)="addIdentificadorField()">
+                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                            <span class="ml-2 font-medium text-secondary group-hover:underline">Adicionar
+                                identificador</span>
+                        </div>
+                    </div>
+
+                    <!-- Contatos -->
+                    <div class="mt-6 w-full">
+                        <h3 class="text-3xl">Contatos</h3>
+                    </div>
+                    <fuse-card class="flex flex-col px-8 py-6 pb-4 shadow-xl" #fuseCard>
+                        <div class="mt-2">
+                            <div class="flex flex-wrap">
+                                <mat-form-field class="w-full" appearance="fill">
+                                    <mat-label class="text-lg font-bold">E-mail</mat-label>
+                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                        [svgIcon]="'heroicons_solid:mail'">
+                                    </mat-icon>
+                                    <input type="email" matInput [formControl]="individuoControlsForm.indEmail"
+                                        placeholder="Ex. pat@example.com">
+                                    <mat-error *ngIf="individuoControlsForm.indEmail.invalid">
+                                        Please enter a valid email address
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </fuse-card>
+
+                    <!-- Telefones -->
+                    <div class="mt-4">
+                        <div class="space-y-4">
+
+                            <div class="mt-2">
+                                <ng-container formArrayName="telefones" *ngFor="let telefone of telefonesControls; let i = index; let first = first; 
+    let last = last; trackBy: trackByFn">
+                                    <div class="relative flex">
+                                        <fuse-card class="flex flex-col mt-2 w-full px-8 py-6 pb-4 shadow-xl" #fuseCard
+                                            [ngClass]="{'bg-removed': telefone.get('indTelStatus')?.value === 0, 'bg-alert': telefone.get('indTelStatus')?.value === 2}">
+                                            <ng-conteiner [formGroup]="telefone" class="w-full">
+                                                <div class="flex flex-col justify-end sm:flex-row sm:items-center w-full"
+                                                    *ngIf="individuo">
+                                                    <div class="hidden sm:flex flex-auto"></div>
+                                                    <div class="flex justify-end">
+                                                        <div class="px-3 mr-1 -ml-2 sm:ml-0"
+                                                            *ngIf="telefone.get('indTelStatus')?.value === 2">
+                                                            <mat-icon class="color-alert" matTooltip="Inativo"
+                                                                aria-hidden="true"
+                                                                svgIcon="mat_outline:remove_moderator">
+                                                            </mat-icon>
+                                                        </div>
+                                                        <div class="px-3 mr-1 -ml-2 sm:ml-0"
+                                                            *ngIf="telefone.get('indTelStatus')?.value === 0">
+                                                            <mat-icon color="warn" matTooltip="Removido"
+                                                                aria-hidden="true" svgIcon="mat_outline:gpp_maybe">
+                                                            </mat-icon>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <mat-form-field class="flex-auto w-full">
+                                                    <mat-label class="text-lg font-bold">Telefone</mat-label>
+                                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                                        [svgIcon]="'heroicons_solid:phone'">
+                                                    </mat-icon>
+                                                    <input matInput formControlName="telefone" mask="(00) 0 0000-0000"
+                                                        [placeholder]="'Telefone'">
+                                                </mat-form-field>
+                                                <div class="flex flex-col sm:flex-row sm:items-center">
+
+                                                    <div class="hidden sm:flex flex-auto"></div>
+                                                    <div class="flex items-center  sm:mt-0">
+                                                        <!-- Remove phone number -->
+                                                        <div class=" px-3 mr-1 -ml-2 sm:ml-0">
+                                                            <ng-container *ngIf="!(first && last)">
+                                                                <div class="flex items-center w-10 pl-2">
+                                                                    <button class="w-8 h-8 min-h-8" type="button"
+                                                                        mat-icon-button (click)="removeTelefoneField(i)"
+                                                                        matTooltip="Remover"
+                                                                        [ngClass]="{'hidden': telefone.get('indTelStatus')?.value === 0}">
+                                                                        <mat-icon class="icon-size-5" [color]="'warn'"
+                                                                            [svgIcon]="'heroicons_solid:trash'">
+                                                                        </mat-icon>
+                                                                    </button>
+                                                                </div>
+                                                            </ng-container>
+                                                        </div>
+
+                                                        <!-- Inativar Telefone-->
+                                                        <div class=" px-3 mr-1 -ml-2 sm:ml-0">
+                                                            <ng-container *ngIf="!(first && last)">
+                                                                <mat-slide-toggle class="mt-2" [color]="'warn'"
+                                                                    [checked]=""
+                                                                    (change)="desativaTelefone($event, telefone)"
+                                                                    [matTooltip]="'Inativar'"
+                                                                    [ngClass]="{'hidden': telefone.get('indTelStatus')?.value === 0}">
+                                                                </mat-slide-toggle>
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-conteiner>
+                                        </fuse-card>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                        </div>
+
+                        <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+                            (click)="addTelefoneField()">
+                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                            <span class="ml-2 font-medium text-secondary group-hover:underline">Adicionar
+                                Telefone</span>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div *ngIf="editMode">
+                        <div class="space-y-4">
+                            <div class="mt-6 w-full">
+                                <h3 class="text-3xl">Alterar Senha</h3>
+                            </div>
+                            <fuse-card class="flex flex-col px-8 py-6 pb-4 shadow-xl" #fuseCard>
+                                <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+                                    <!-- Current password -->
+                                    <div class="sm:col-span-4">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <mat-label>Senha</mat-label>
+                                            <!-- <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon> -->
+                                            <input matInput formControlName="password"
+                                                [type]="hide ? 'password' : 'text'" maxlength="8">
+                                            <button mat-icon-button matSuffix (click)="hide = !hide"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                        </mat-form-field>
+                                    </div>
+                                    <!-- New password -->
+                                    <div class="sm:col-span-4">
+                                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                                            <mat-label>Confirmar Senha</mat-label>
+                                            <!-- <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon> -->
+                                            <input matInput formControlName="confirmPassword"
+                                                [type]="hide ? 'password' : 'text'" maxlength="8"
+                                                appConfirmEqualValidator="password">
+
+                                            <button mat-icon-button matSuffix (click)="hide = !hide"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+
+                                        </mat-form-field>
+                                        <mat-error
+                                            *ngIf="individuoControlsForm.confirmPassword.invalid && (individuoControlsForm.confirmPassword.dirty || individuoControlsForm.confirmPassword.touched)"
+                                            class="mt-1 text-md text-hint">
+                                            As senhas não são iguais
+                                        </mat-error>
+                                        <div class="mt-1 text-md text-hint">Mínimo de 8 caracteres. Deve incluir números,
+                                            letras e caracteres especiais.</div>
+
+                                        <div class="px-3 mr-1 -ml-2 sm:ml-0 w-full">
+                                            <ng-container>
+                                                <div class="flex items-center" id="troca-senha">
+                                                    <button class="w-8 h-8 min-h-8" mat-icon-button type="button"
+                                                        matTooltip="Troca Senha" (click)="updatePassword()">
+                                                        <mat-icon class="icon-size-5" [color]="'warn'"
+                                                            [svgIcon]="'mat_outline:published_with_changes'">
+                                                        </mat-icon>
+                                                    </button>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </fuse-card>
+                        </div>
+                    </div>
+
+
+                    <!-- Endereços -->
+                    <div>
+                        <div class="space-y-4">
+                            <ng-container formArrayName="enderecos"
+                                *ngFor="let endereco of enderecosControls; let i = index; let first = first; let last = last; trackBy: trackByFn">
+                                <div class="mt-6 w-full">
+                                    <h3 class="text-3xl">Endereço {{i+1}}</h3>
+                                </div>
+                                <fuse-card class="flex flex-col px-8 py-6 pb-4 shadow-xl" #fuseCard
+                                    [ngClass]="{'bg-removed': endereco.get('indEndStatus')?.value === 0, 'bg-alert': endereco.get('indEndStatus')?.value === 2}">
+                                    <div class="mt-2">
+                                        <ng-container [formGroup]="endereco">
+                                            <div class="flex flex-col justify-end sm:flex-row sm:items-center w-full"
+                                                *ngIf="individuo">
+                                                <div class="hidden sm:flex flex-auto"></div>
+                                                <div class="flex justify-end">
+                                                    <div class="px-3 mr-1 -ml-2 sm:ml-0"
+                                                        *ngIf="endereco.get('indEndStatus')?.value === 2">
+                                                        <mat-icon class="color-alert" matTooltip="Inativo"
+                                                            aria-hidden="true" svgIcon="mat_outline:remove_moderator">
+                                                        </mat-icon>
+                                                    </div>
+                                                    <div class="px-3 mr-1 -ml-2 sm:ml-0"
+                                                        *ngIf="endereco.get('indEndStatus')?.value === 0">
+                                                        <mat-icon color="warn" matTooltip="Removido" aria-hidden="true"
+                                                            svgIcon="mat_outline:gpp_maybe"></mat-icon>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-6 flex flex-wrap">
+                                                <div class="flex-auto mr-2">
+                                                    <mat-form-field class=" w-full">
+                                                        <mat-label>Logradouro</mat-label>
+                                                        <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                                                        <input matInput formControlName="logradouro"
+                                                            [placeholder]="'Rua e número'">
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="flex-auto">
+                                                    <mat-form-field class=" w-full">
+                                                        <mat-label>CEP</mat-label>
+                                                        <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                                                        <input matInput formControlName="cep" mask="00.000-000"
+                                                            [placeholder]="'XX.XXX-XXX'">
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="mt-6">
+                                                <mat-form-field class="w-full">
+                                                    <mat-label>Bairro</mat-label>
+                                                    <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                                        [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                                                    <input matInput formControlName="bairro" [placeholder]="'Bairro'">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="mt-6 flex flex-wrap">
+                                                <div class="flex-auto">
+                                                    <mat-form-field appearance="fill" class="w-full">
+                                                        <mat-label>Estado</mat-label>
+                                                        <mat-select formControlName="estado" [compareWith]="compareFn">
+                                                            <mat-option *ngFor="let estado of estados$ | async"
+                                                                [value]="estado">
+                                                                {{ estado.nome }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            <div class="mt-6 flex flex-wrap">
+                                                <div class="flex-auto">
+                                                    <mat-form-field class="w-full" appearance="fill">
+                                                        <mat-label>Cidade</mat-label>
+                                                        <input matInput aria-label="Cidade" [matAutocomplete]="auto"
+                                                            formControlName="cidade">
+                                                        <mat-spinner *ngIf="isLoadingCidades" diameter="20" matSuffix>
+                                                        </mat-spinner>
+                                                        <mat-autocomplete #auto="matAutocomplete"
+                                                            [compareWith]="compareFn" [displayWith]="itemDisplayFn">
+                                                            <mat-option *ngFor="let cidade of cidades$ | async"
+                                                                [value]="cidade" [id]="cidade.recId">
+                                                                {{ cidade.lstCidDescricao }}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                    <hr class="border-b mt-4 mb-1">
+                                    <div class="flex flex-col sm:flex-row sm:items-center  mb-4 sm:mb-6">
+                                        <div class="hidden sm:flex flex-auto"></div>
+                                        <div class="flex items-center mt-4 sm:mt-0">
+                                            <!-- Remove Endereço -->
+                                            <div class="px-3 mr-1 sm:ml-0">
+                                                <ng-container *ngIf="!(first && last)">
+                                                    <div class="flex items-center w-10">
+                                                        <button class="mt-2" type="button" mat-icon-button
+                                                            (click)="removeEnderecoField(i)" matTooltip="Remover"
+                                                            [ngClass]="{'hidden': endereco.get('indEndStatus')?.value === 0}">
+                                                            <mat-icon class="icon-size-5" [color]="'warn'"
+                                                                [svgIcon]="'heroicons_solid:trash'">
+                                                            </mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+
+                                            <!-- Inativar Endereço-->
+                                            <div class="px-3 mr-1 -ml-2 sm:ml-0">
+                                                <ng-container *ngIf="!(first && last)">
+                                                    <mat-slide-toggle class="mt-2" [color]="'warn'"
+                                                        [checked]="useDefault"
+                                                        (change)="desativaEndereco($event, endereco)"
+                                                        [matTooltip]="'Inativar'"
+                                                        [ngClass]="{'hidden': endereco.get('indEndStatus')?.value === 0}">
+                                                    </mat-slide-toggle>
+                                                </ng-container>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </fuse-card>
+                            </ng-container>
+                        </div>
+                        <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+                            (click)="addEnderecoField()">
+                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                            <span class="ml-2 font-medium text-secondary group-hover:underline">Adicionar
+                                Endereço</span>
+                        </div>
+                    </div>
+
+                    <!-- Individuo Programa Saúde -->
+                    <!-- <div>
+                        <div class="space-y-4">
+                            <div class="mt-6 w-full">
+                                <h3 class="text-3xl">Programa de Saúde</h3>
+                            </div>
+                            <fuse-card class="flex flex-col px-8 py-6 pb-4 shadow-xl" #fuseCard>
+                                <div class="mt-2">
+                                    <ng-container>
+                                        <div class="mt-6 flex flex-wrap">
+                                            <div class="flex-auto">
+                                                <mat-form-field appearance="fill" class="w-full">
+                                                    <mat-label>Programa</mat-label>
+                                                    <mat-select formControlName="programaSaude"
+                                                        [compareWith]="compareFn">
+                                                        <mat-option *ngFor="let programa of programaSaudes$ | async"
+                                                            [value]="programa">
+                                                            {{ programa.nome }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-6 flex flex-wrap">
+                                            <div class="flex-auto">
+                                                <mat-form-field appearance="fill" class="w-full">
+                                                    <mat-label>Cliente</mat-label>
+                                                    <mat-select formControlName="programaCliente"
+                                                        [compareWith]="compareFn">
+                                                        <mat-option *ngFor="let cliente of programaClientes$ | async"
+                                                            [value]="cliente">
+                                                            {{ cliente.nome }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-6 flex flex-wrap">
+                                            <div class="flex-auto">
+                                                <mat-form-field appearance="fill" class="w-full">
+                                                    <mat-label>Equipe</mat-label>
+                                                    <mat-select formControlName="individuoEquipe"
+                                                        [compareWith]="compareFn">
+                                                        <mat-option *ngFor="let equipe of  individuoEquipe$ | async"
+                                                            [value]="equipe">
+                                                            {{ equipe.nome }}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+                                    </ng-container>
+                                </div>
+                            </fuse-card>
+                        </div>
+                    </div> -->
+
+
+                    <!-- Actions -->
+                    <div class="flex justify-center mt-10 -mx-6 py-4 pr-4 pl-1 border-t bg-gray-50 dark:bg-transparent">
+
+                        <!-- Inativar -->
+                        <mat-slide-toggle *ngIf="editMode" class="mt-2" [color]="'warn'" [checked]="useDefault"
+                            (change)="desativaIndividuo($event)" [matTooltip]="'Inativar'">Inativar
+                        </mat-slide-toggle>
+
+                        <!-- Delete -->
+                        <button class="ml-2" [color]="'warn'" type="button" (click)="removerIndividuo()" mat-button
+                            [matTooltip]="'Remover'">
+                            Remover
+                        </button>
+
+                        <!-- Cancel -->
+                        <button class="ml-auto" type="button" mat-button [matTooltip]="'Cancelar'"
+                            (click)="cancelEdit()">
+                            Cancelar
+                        </button>
+
+                        <!-- Save -->
+                        <button *ngIf="!editMode" class="ml-2" mat-flat-button [color]="'primary'" type="submit"
+                            [matTooltip]="'Salvar'" [disabled]="individuoForm.invalid">
+                            Salvar
+                        </button>
+
+                        <!-- Update -->
+                        <button *ngIf="editMode" class="ml-2" mat-flat-button type="button" [color]="'primary'"
+                            [matTooltip]="'Atualizar'" [disabled]="individuoForm.invalid" (click)="updateIndividuo()">
+                            Atualizar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </ng-container>
+
+    </ng-container>
+
+    <!-- No Indivíduo -->
+    <ng-template #noIndividuo>
+        <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center loader">Carregando
+            indivíduo
+            <span class="dot dot-1"></span>
+            <span class="dot dot-2"></span>
+            <span class="dot dot-3"></span>
+            <span class="dot dot-4"></span>
+        </div>
+    </ng-template>
+</div>

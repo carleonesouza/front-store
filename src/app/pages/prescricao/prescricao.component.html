@@ -1,0 +1,76 @@
+
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+  <div class="flex bg-card dark:bg-transparent">
+
+    <div class="flex flex-col w-full">
+      <!-- Main -->
+      <div class="flex-auto">
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row md:flex-col flex-auto justify-between py-10 px-10 md:px-10 border-b">
+
+          <!-- Main actions -->
+          <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
+            <!-- Search -->
+            <div class="flex-auto mr-1 sm:mr-1">
+              <mat-form-field class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded w-full min-w-50">
+                <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                <input matInput [formControl]="searchInputControl" [autocomplete]="'off'"
+                  [placeholder]="'Digite seu CPF'" (blur)="searchItems($event)">
+              </mat-form-field>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Lista -->
+  <div class="relative mt-5 p-3" *ngIf="!panel">
+    <ng-container>
+      <!-- Item -->
+      <fuse-card class="flex flex-col px-8 py-6 pb-4 shadow-xl" #fuseCard>
+        <div class="border-b flex">
+          <div class="flex w-full">
+
+            <div class="flex w-full items-center px-6 py-4 md:px-8 rounded-lg">
+              <div class="min-w-0 ml-4">
+                <div class="flex font-medium leading-5 truncate">Nome do Usuário</div>
+              </div>
+            </div>
+          </div>
+          <div class="p-2 flex">
+            <ng-container>
+              <div class="flex items-center">
+                <button mat-icon-button color="primary" (click)="prescrever()" matTooltip="Prescrever"
+                  aria-label="botão prescrever">
+                  <mat-icon>vaccines</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+            <ng-container>
+
+              <div class="flex items-center w-auto">
+                <button mat-icon-button color="primary" matTooltip="Confirmar" aria-label="botão Confirmar">
+                  <mat-icon>medical_services</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+
+        </div>
+      </fuse-card>
+
+    </ng-container>
+
+    <!-- No List -->
+    <ng-template #noListas>
+      <div class="p-8 sm:p-16 border-t text-4xl font-semibold tracking-tight text-center">
+        Não encontramos nenhuma lista!</div>
+    </ng-template>
+  </div>
+</div>
+<div class="flex justify-center items-center" id="pre-memed">  
+    <div class="memed-container" id="memed-container"></div>
+</div>
+

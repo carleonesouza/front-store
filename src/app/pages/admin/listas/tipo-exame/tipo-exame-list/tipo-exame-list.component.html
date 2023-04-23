@@ -1,0 +1,12 @@
+<app-list-items
+[items$]= "tipoExames$"
+[listCount]="tipoExameCount"
+[listName]="'Tipo Exames'"
+[listNames]="'Tipo Exames'"
+[itemNome]="'LstTipExaDescricao'"
+[pageSlice]="tipoExames"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createItem($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>

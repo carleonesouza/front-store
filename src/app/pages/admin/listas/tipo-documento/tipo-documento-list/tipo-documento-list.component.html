@@ -1,0 +1,13 @@
+<app-list-items
+[items$]= "tipoDocumentos$"
+[listCount]="tipoDocumentoCount"
+[listName]="'Tipo Documento'"
+[listNames]="'Tipo Documentos'"
+[itemNome]="'LstTipDocDescricao'"
+[pageSlice]="tipoDocumentos"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createItem($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>
+

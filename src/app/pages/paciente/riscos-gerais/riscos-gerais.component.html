@@ -1,0 +1,347 @@
+<div class="flex flex-col flex-auto min-w-0">
+    <div
+    class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-4 bg-card shadow rounded-2xl overflow-hidden">
+    <div class="flex flex-col sm:flex-row items-start justify-between">
+        <div class="text-lg font-medium tracking-tight leading-6 truncate">Atendimentos por comorbidades
+        </div>
+       
+    </div>
+    <div class="flex flex-col mt-4 divide-y">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+            [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"></apx-chart>
+    </div>
+</div>
+<!--main-->
+    <div class="flex-auto border-t -mt-px pt-6 sm:pt-6">
+        <div class="w-full max-w-screen-xl mx-auto">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 w-full min-w-0">
+                <!-- Atendimentos Acumulados -->
+                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex items-start justify-between">
+                        
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                <mat-icon [svgIcon]="'iconsmind:brain'"  ></mat-icon>
+                        <div class="text-lg font-medium text-blue-600 dark:text-blue-500">AVC</div>
+                        <div class="text-md font-medium text-blue-600 dark:text-blue-500">alto risco</div>
+                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                        <mat-accordion>
+                            <mat-expansion-panel hideToggle>
+                              <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                  Dicas    
+                                  
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                </mat-panel-description>
+                              </mat-expansion-panel-header>
+                              <p>Consulte o seu neurologista regularmente , cuide da sua pressão arterial e compareça à reabilitação com fisioterapeuta e fonoaudiologia caso tenha tido alguma sequela do AVC.</p>
+                            </mat-expansion-panel>
+                          </mat-accordion>
+                         </div>
+                    </div>
+                </div>
+                                <!-- Atendimentos Acumulados -->
+                                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                        <mat-icon
+                                        class="mr-1 text-blue-500"
+                                        [svgIcon]="'iconsmind:brain_2'"></mat-icon>
+                                        <div class="text-lg font-medium text-blue-600 dark:text-blue-500">Demência</div>
+                                        <div class="text-md font-medium text-blue-600 dark:text-blue-500">alto risco</div>
+                                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                          
+                                            <mat-accordion>
+                                                <mat-expansion-panel hideToggle>
+                                                  <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                      Dicas
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                    </mat-panel-description>
+                                                  </mat-expansion-panel-header>
+                                                  <p>Jogos de tabuleiro, palavras cruzadas e caça-palavras podem desacelerar a progressão da demência. anote o que for necessário em post-it e cole pela casa para não se esquecer!</p>
+                                                </mat-expansion-panel>
+                                              </mat-accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Atendimentos Acumulados -->
+                                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                        <mat-icon
+                                        class="mr-1 text-blue-500"
+                                        [svgIcon]="'iconsmind:business_mens'"></mat-icon>
+                                        <div class="text-lg font-medium text-blue-600 dark:text-blue-500">Psiquiátrico</div>
+                                        <div class="text-md font-medium text-blue-600 dark:text-blue-500">alto risco</div>
+                                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                         
+                                            <mat-accordion>
+                                                <mat-expansion-panel hideToggle>
+                                                  <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                      Dicas
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                    </mat-panel-description>
+                                                  </mat-expansion-panel-header>
+                                                  <p>Faça consultar regulares ao psicólogo e psiquiatras e acompanhe a sua evolução com a medicação.</p>
+                                                </mat-expansion-panel>
+                                              </mat-accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                                                <!-- Atendimentos Acumulados -->
+                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex items-start justify-between">
+                        
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                        <mat-icon
+                        class="mr-1 text-red-500"
+                        [svgIcon]="'iconsmind:heart'"></mat-icon>
+                        <div class="text-lg font-medium text-red-600 dark:text-red-500">Hipertensão</div>
+                        <div class="text-md font-medium text-red-600 dark:text-red-500">alto risco</div>
+                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                          
+                            <mat-accordion>
+                                <mat-expansion-panel hideToggle>
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      Dicas
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+                                  <p>Reduza o consumo do sal, pratique atividade física regularmente e controle a sua medicação para evitar problemas com a pressão alta!</p>
+                                </mat-expansion-panel>
+                              </mat-accordion>
+                        </div>
+                    </div>
+                </div>
+                                <!-- Atendimentos Acumulados -->
+                                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                        <mat-icon
+                                        class="mr-1 text-red-500"
+                                        [svgIcon]="'iconsmind:cardiovascular'"></mat-icon>
+                                        <div class="text-lg font-medium text-red-600 dark:text-blue-500">Insuficiência cardíaca</div>
+                                        <div class="text-md font-medium text-red-600 dark:text-blue-500">alto risco</div>
+                                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                           
+                                            <mat-accordion>
+                                                <mat-expansion-panel hideToggle>
+                                                  <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                      Dicas
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                    </mat-panel-description>
+                                                  </mat-expansion-panel-header>
+                                                  <p>Tome a sua medicação regularmente e vá ao seu médico cardiologista para acompanhar a evolução da sua insuficiência cardíaca.</p>
+                                                </mat-expansion-panel>
+                                              </mat-accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Atendimentos Acumulados -->
+                                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                        <mat-icon
+                                        class="mr-1 text-red-500"
+                                        [svgIcon]="'iconsmind:drop'"></mat-icon>
+                                        <div class="text-lg font-medium text-red-600 dark:text-blue-500">Rins</div>
+                                        <div class="text-md font-medium text-red-600 dark:text-blue-500">alto risco</div>
+                                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                         
+                                            <mat-accordion>
+                                                <mat-expansion-panel hideToggle>
+                                                  <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                      Dicas
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                    </mat-panel-description>
+                                                  </mat-expansion-panel-header>
+                                                  <p>Consulte regularmente seu médico de saúde da família ou seu nefrologista para acompanhar a evolução da sua disfunção renal. evite o consumo de sal e cuida da pressão arterial alta e Diabetes , caso as possua.</p>
+                                                </mat-expansion-panel>
+                                              </mat-accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                                                <!-- Atendimentos Acumulados -->
+                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex items-start justify-between">
+                        
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                <mat-icon class="mr-1 text-amber-500" [svgIcon]="'iconsmind:bodybuilding'"  ></mat-icon>
+                        <div class="text-lg font-medium text-amber-600 dark:text-blue-500">Osteomuscular</div>
+                        <div class="text-md font-medium text-amber-600 dark:text-blue-500">alto risco</div>
+                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                           
+                            <mat-accordion>
+                                <mat-expansion-panel hideToggle>
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      Dicas
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+                                  <p>Consulte um profissional fisioterapeuta ou educador físico para sua reabilitação osteomuscular. </p>
+                                </mat-expansion-panel>
+                              </mat-accordion>
+                        </div>
+                    </div>
+                </div>
+                                <!-- Atendimentos Acumulados -->
+                                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                <mat-icon  class="mr-1 text-amber-500" [svgIcon]="'iconsmind:one_finger'"  ></mat-icon>
+                                        <div class="text-lg font-medium text-amber-600 dark:text-blue-500">Diabetes</div>
+                                        <div class="text-md font-medium text-amber-600 dark:text-blue-500">alto risco</div>
+                                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                            
+                                            <mat-accordion>
+                                                <mat-expansion-panel hideToggle>
+                                                  <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                      Dicas
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                    </mat-panel-description>
+                                                  </mat-expansion-panel-header>
+                                                  <p>Reduza o consumo do açúcar e das massas para um melhor controle do DM2 , além disso, tome a sua medicação regularmente e evite complicações </p>
+                                                </mat-expansion-panel>
+                                              </mat-accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Atendimentos Acumulados -->
+                                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                <mat-icon  class="mr-1 text-amber-500" [svgIcon]="'iconsmind:apple_bite'"  ></mat-icon>
+                                        <div class="text-lg font-medium text-amber-600 dark:text-blue-500">Obesidade</div>
+                                        <div class="text-md font-medium text-amber-600 dark:text-blue-500">alto risco</div>
+                                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                            
+                                            <mat-accordion>
+                                                <mat-expansion-panel hideToggle>
+                                                  <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                      Dicas
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                    </mat-panel-description>
+                                                  </mat-expansion-panel-header>
+                                                  <p>Cuide da sua aimentação , faça atividade física regularmente e adote novos hábitos para ajudar no processo de emagrecimento! acesse www.eusaude.com.br e saiba mais</p>
+                                                </mat-expansion-panel>
+                                              </mat-accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                                                <!-- Atendimentos Acumulados -->
+                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                    <div class="flex items-start justify-between">
+                        
+                    </div>
+                    <div class="flex flex-col items-center mt-2">
+                <mat-icon  class="mr-1 text-green-500" [svgIcon]="'iconsmind:letter_sent'"  ></mat-icon>
+                        <div class="text-lg font-medium text-green-600 dark:text-blue-500">Asma</div>
+                        <div class="text-md font-medium text-green-600 dark:text-blue-500">alto risco</div>
+                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                            
+                            <mat-accordion>
+                                <mat-expansion-panel hideToggle>
+                                  <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                      Dicas
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    </mat-panel-description>
+                                  </mat-expansion-panel-header>
+                                  <p>Evite exposição a alérgenos (poeira, pelos ,pólen) e faça uma limpeza adequada de carpetes e cortinas para evitar crises asmáticas.</p>
+                                </mat-expansion-panel>
+                              </mat-accordion>
+                        </div>
+                    </div>
+                </div>
+                                <!-- Atendimentos Acumulados -->
+                                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                        <mat-icon  class="mr-1 text-green-500" svgIcon="air"></mat-icon>
+                                        <div class="text-lg font-medium text-green-600 dark:text-blue-500">DPOC</div>
+                                        <div class="text-md font-medium text-green-600 dark:text-blue-500">alto risco</div>
+                                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                            
+                                            <mat-accordion>
+                                                <mat-expansion-panel hideToggle>
+                                                  <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                      Dicas
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                    </mat-panel-description>
+                                                  </mat-expansion-panel-header>
+                                                  <p>Evite o tabagismo e mantenha distância de alérgenos (carpetes, poeira) para evitar exacerbação da sua DPOC! Saiba mais em www.eusaude.com.br</p>
+                                                </mat-expansion-panel>
+                                              </mat-accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Atendimentos Acumulados -->
+                                <div class="flex flex-col flex-auto p-2 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                        <mat-icon  class="mr-1 text-green-500" [svgIcon]="'iconsmind:cancer'"></mat-icon>
+                                        <div class="text-lg font-medium text-green-600 dark:text-blue-500">Oncológico</div>
+                                        <div class="text-md font-medium text-green-600 dark:text-blue-500">alto risco</div>
+                                        <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
+                                            
+                                            <mat-accordion>
+                                                <mat-expansion-panel hideToggle>
+                                                  <mat-expansion-panel-header>
+                                                    <mat-panel-title>
+                                                      Dicas
+                                                    </mat-panel-title>
+                                                    <mat-panel-description>
+                                                    </mat-panel-description>
+                                                  </mat-expansion-panel-header>
+                                                  <p>This is the primary content of the panel.</p>
+                                                </mat-expansion-panel>
+                                              </mat-accordion>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+        </div>
+    </div>
+
+</div>

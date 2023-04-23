@@ -1,0 +1,13 @@
+<app-list-items
+[items$]= "racas$"
+[listCount]="racaCount"
+[listName]="'Raça'"
+[listNames]="'Raças'"
+[itemNome]="'raca'"
+[pageSlice]="racas"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createRaca($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>
+

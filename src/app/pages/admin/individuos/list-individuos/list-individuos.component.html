@@ -1,0 +1,19 @@
+<app-list-items
+[items$]= "individuos$"
+[listCount]="individuoCount"
+[listName]="'Indivíduo'"
+[listNames]="'Indivíduos'"
+[itemNome]="'indNome'"
+[placeHolder] = "'Digite o id do Indivíduo'"
+[pageSlice]="individuos"
+[itemId]="'recId'"
+[include]="true"
+[individuo]="true"
+(searchItem)="searchItem($event)"
+(addItem)="createItem($event)"
+(associa)="associaItem($event)"
+(addIdentificador)="addIdentificador($event)"
+(syncList)="syncListas($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>
+

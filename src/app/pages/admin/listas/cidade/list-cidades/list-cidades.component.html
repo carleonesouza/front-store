@@ -1,0 +1,15 @@
+<app-list-items
+[items$]= "cidades$"
+[listCount]="cidadeCount"
+[listName]="'Cidade'"
+[listNames]="'Cidades'"
+[itemNome]="'lstCidDescricao'"
+[pageSlice]="cidades"
+[itemId]="'recId'"
+(searchItem)="searchItem($event)"
+[totalElements]="totalElements"
+(addItem)="createCidade($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>
+
+

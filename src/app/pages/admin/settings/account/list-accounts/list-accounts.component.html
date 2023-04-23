@@ -1,0 +1,17 @@
+<app-list-items
+[items$]= "users$"
+[listCount]="usersCount"
+[listName]="'Usuário'"
+[listNames]="'Usuários'"
+[itemNome]="'firstName'"
+[placeHolder] = "'Digite o e-mail'"
+[pageSlice]="users"
+[itemId]="'id'"
+[include]="true"
+[totalElements]="totalElements"
+(searchItem)="searchItem($event)"
+(addItem)="createItem($event)"
+(associa)="associaItem($event)"
+(syncList)="syncListas($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>

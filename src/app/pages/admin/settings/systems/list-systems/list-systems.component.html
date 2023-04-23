@@ -1,0 +1,14 @@
+<app-list-items
+[items$]= "systems$"
+[listCount]="systemCount"
+[listName]="'Serviço'"
+[listNames]="'Serviços'"
+[placeHolder] = "'Digite o ID do Serviço'"
+[itemNome]="'name'"
+[pageSlice]="systems"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(searchItem)="searchItem($event)"
+(addItem)="createItem($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>

@@ -1,0 +1,12 @@
+<app-list-items
+[items$]= "especialidades$"
+[listCount]="especialidadesCount"
+[listName]="'Especialidade'"
+[listNames]="'Especialidades'"
+[itemNome]="'LstEspDocDescricao'"
+[pageSlice]="especialidades"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createItem($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>

@@ -1,0 +1,12 @@
+<app-list-items
+[items$]= "equipes$"
+[listCount]="equipeCount"
+[listName]="'Equipe'"
+[listNames]="'Equipes'"
+[itemNome]="'EquNome'"
+[pageSlice]="equipes"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createItem($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>

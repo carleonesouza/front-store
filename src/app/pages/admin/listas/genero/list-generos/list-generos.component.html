@@ -1,0 +1,14 @@
+<app-list-items
+[items$]= "generos$"
+[listCount]="generoCount"
+[listName]="'Gênero'"
+[listNames]="'Gêneros'"
+[itemNome]="'genero'"
+[pageSlice]="generos"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createGenero($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>
+
+

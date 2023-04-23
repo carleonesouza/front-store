@@ -1,0 +1,12 @@
+<app-list-items
+[items$]= "condicaoClinicas$"
+[listCount]="condicaoClinicaCount"
+[listName]="'Condição Clínica'"
+[listNames]="'Condições Clínicas'"
+[itemNome]="'LstConCliDescricao'"
+[pageSlice]="condicaoClinicas"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createItem($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>

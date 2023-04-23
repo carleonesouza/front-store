@@ -1,0 +1,12 @@
+<app-list-items
+[items$]= "programaClientes$"
+[listCount]="programaClienteCount"
+[listName]="'Programa Cliente'"
+[listNames]="'Programa Clientes'"
+[itemNome]="'progCliDescricao'"
+[pageSlice]="programaClientes"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createItem($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>

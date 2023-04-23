@@ -1,0 +1,12 @@
+<app-list-items
+[items$]= "programaSaudes$"
+[listCount]="programaSaudeCount"
+[listName]="'Programa Saúde'"
+[listNames]="'Programa Saúde'"
+[itemNome]="'progSauDescricao'"
+[pageSlice]="programaSaudes"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createItem($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>

@@ -1,0 +1,14 @@
+<app-list-items
+[items$]= "routes$"
+[listCount]="routesCount"
+[listName]="'Rota'"
+[listNames]="'Rotas'"
+[itemNome]="'route'"
+[pageSlice]="routes"
+[placeHolder] = "'Digite o ID'"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(searchItem)="searchItem($event)"
+(addItem)="createItem($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>

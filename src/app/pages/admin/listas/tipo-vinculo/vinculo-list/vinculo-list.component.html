@@ -1,0 +1,14 @@
+<app-list-items
+[items$]= "vinculos$"
+[listCount]="vinculoCount"
+[listName]="'Vínculo'"
+[listNames]="'Vínculos'"
+[itemNome]="'lstTipVinDescricao'"
+[pageSlice]="vinculos"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createVinculo($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>
+
+

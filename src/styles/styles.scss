@@ -1,0 +1,27 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.mat-snack-bar-container .mat-focus-indicator{ color: #ff9e1b !important; }
+
+.blue-snackbar {
+    background: #2196F3;
+}
+.green-snackbar {
+    background: #1DE9B6 !important;
+    width: 100vw !important;
+    min-width: unset !important;
+    max-width: unset !important;
+    color: rgb(0, 0, 0) !important;
+}
+.red-snackbar {
+    width: 100vw !important;
+    min-width: unset !important;
+    max-width: unset !important;
+    color: #fff !important;
+    background: #f80834 !important;
+}
+

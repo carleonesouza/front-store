@@ -1,0 +1,91 @@
+<div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0">
+    <!-- Budget distribution -->
+    <div class="sm:col-span-3 lg:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+        <div class="text-lg font-medium tracking-tight leading-6 truncate">saúde em tempo real</div>
+        <div class="flex flex-col flex-auto">
+            <apx-chart
+            [series]="chartOptions2.series"
+            [chart]="chartOptions2.chart"
+            [xaxis]="chartOptions2.xaxis"
+            [title]="chartOptions2.title"
+          ></apx-chart>
+        </div>
+    </div>
+    <!-- Expense -->
+    <div class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+        <!-- Weekly expenses -->
+        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between">
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">Última nota geral de saúde</div>
+            </div>
+            <div class="flex items-center mt-1">
+                <div class="flex flex-col">
+                    <div class="text-3xl font-semibold tracking-tight leading-tight">
+                       <span class="text-green-500">90%</span>
+                    </div>
+                    <div class="flex items-center">
+                        <mat-icon
+                            class="mr-1 icon-size-5 text-green-500"
+                            [svgIcon]="'heroicons_solid:badge-check'"></mat-icon>
+                        <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                            <span class="text-green-500"></span>
+                            Maior que a média dos usuários para sua idade
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col flex-auto ml-8">
+
+                </div>
+            </div>
+        </div>
+        <!-- Monthly expenses -->
+        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between">
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">Maior risco!</div>
+            </div>
+            <div class="flex items-center mt-1">
+                <div class="flex flex-col">
+                    <div class="text-3xl font-semibold tracking-tight leading-tight">
+                        <span class="text-orange-500">Obesidade grau 3</span>
+                    </div>
+                    <div class="flex items-center">
+                        <mat-icon
+                            class="mr-1 icon-size-5 text-orange-500"
+                            [svgIcon]="'heroicons_solid:exclamation'"></mat-icon>
+                        <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                            <span class="text-orange-500">atenção às dicas personalizadas</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col flex-auto ml-8">
+
+                </div>
+            </div>
+        </div>
+        <!-- Yearly expenses -->
+        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between">
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">Média de saúde</div>
+            </div>
+            <div class="flex items-center mt-1">
+                <div class="flex flex-col">
+                    <div class="text-3xl font-semibold tracking-tight leading-tight">
+                      <span class="text-blue-500">moderado risco</span>
+                    </div>
+                    <div class="flex items-center">
+                        <mat-icon
+                            class="mr-1 icon-size-5 text-green-500"
+                            [svgIcon]="'heroicons_solid:chart-pie'"></mat-icon>
+                        <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                            <span class="text-gree-500">Atenção à sua saúde</span>
+                                                    </div>
+                    </div>
+                </div>
+                <div class="flex flex-col flex-auto ml-8">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

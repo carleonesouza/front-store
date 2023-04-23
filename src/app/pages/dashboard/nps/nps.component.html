@@ -1,0 +1,93 @@
+<div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0">
+    <!-- Budget distribution -->
+    <div class="sm:col-span-3 lg:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+        <div class="text-lg font-medium tracking-tight leading-6 truncate">NPS em Tempo Real</div>
+        <div class="flex flex-col flex-auto">
+            <apx-chart
+            [series]="chartOptions2.series"
+            [chart]="chartOptions2.chart"
+            [xaxis]="chartOptions2.xaxis"
+            [title]="chartOptions2.title"
+          ></apx-chart>
+        </div>
+    </div>
+    <!-- Expense -->
+    <div class="sm:col-span-3 lg:col-span-2 grid grid-cols-1 gap-y-6">
+        <!-- Weekly expenses -->
+        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between">
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">Maior nota</div>
+            </div>
+            <div class="flex items-center mt-1">
+                <div class="flex flex-col">
+                    <div class="text-3xl font-semibold tracking-tight leading-tight">
+                       <span class="text-green-500">10</span>
+                    </div>
+                    <div class="flex items-center">
+                        <mat-icon
+                            class="mr-1 icon-size-5 text-green-500"
+                            [svgIcon]="'heroicons_solid:trending-up'"></mat-icon>
+                        <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                            <span class="text-green-500">Última maior nota:</span>
+                            PASA
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col flex-auto ml-8">
+
+                </div>
+            </div>
+        </div>
+        <!-- Monthly expenses -->
+        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between">
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">Menor nota</div>
+            </div>
+            <div class="flex items-center mt-1">
+                <div class="flex flex-col">
+                    <div class="text-3xl font-semibold tracking-tight leading-tight">
+                        <span class="text-orange-500">7</span>
+                    </div>
+                    <div class="flex items-center">
+                        <mat-icon
+                            class="mr-1 icon-size-5 text-orange-500"
+                            [svgIcon]="'heroicons_solid:trending-down'"></mat-icon>
+                        <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                            <span class="text-orange-500">Última menor nota:</span>
+                            B2C
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col flex-auto ml-8">
+
+                </div>
+            </div>
+        </div>
+        <!-- Yearly expenses -->
+        <div class="sm:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+            <div class="flex items-start justify-between">
+                <div class="text-lg font-medium tracking-tight leading-6 truncate">Média NPS</div>
+            </div>
+            <div class="flex items-center mt-1">
+                <div class="flex flex-col">
+                    <div class="text-3xl font-semibold tracking-tight leading-tight">
+                      <span class="text-blue-500">8,9</span>
+                    </div>
+                    <div class="flex items-center">
+                        <mat-icon
+                            class="mr-1 icon-size-5 text-green-500"
+                            [svgIcon]="'heroicons_solid:trending-up'"></mat-icon>
+                        <div class="font-medium text-sm text-secondary leading-none whitespace-nowrap">
+                            <span class="text-gree-500">Média favorável</span>
+                            | Limite: 8,2
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col flex-auto ml-8">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

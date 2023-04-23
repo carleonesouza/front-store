@@ -1,0 +1,13 @@
+<app-list-items
+[items$]= "exames$"
+[listCount]="examesCount"
+[listName]="'Exame'"
+[listNames]="'Exames'"
+[itemNome]="'LstExaDocDescricao'"
+[pageSlice]="exames"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createItem($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>
+

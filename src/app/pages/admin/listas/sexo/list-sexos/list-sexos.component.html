@@ -1,0 +1,13 @@
+<app-list-items
+[items$]= "sexos$"
+[listCount]="sexoCount"
+[listName]="'Sexo'"
+[listNames]="'Sexos'"
+[itemNome]="'sexo'"
+[pageSlice]="sexos"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createSexo($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>
+

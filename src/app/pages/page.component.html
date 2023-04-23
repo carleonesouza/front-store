@@ -1,0 +1,97 @@
+<fuse-loading-bar></fuse-loading-bar>
+<!-- Navigation -->
+<fuse-vertical-navigation *ngIf="toAuth()" class="dark bg-gray-900 print:hidden"
+    [mode]="!isScreenSmall ? 'over' : 'side'" [name]="'mainNavigation'" [navigation]="navigationData"
+    [opened]="isScreenSmall">
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+        <!-- Logo -->
+        <div class="flex items-center h-20 p-6 pb-0">
+            <!-- Light version -->
+            <img class="dark:hidden w-30" src="assets/images/logo/logo-text.svg" alt="Logo image">
+            <!-- Dark version -->
+            <img class="hidden dark:flex w-30" src="assets/images/logo/logo-text-on-dark.svg" alt="Logo image">
+        </div>
+    </ng-container>
+</fuse-vertical-navigation>
+
+<!-- Wrapper -->
+<div class="flex flex-col flex-auto w-full min-w-0">
+
+    <!-- Header -->
+    <div *ngIf="toAuth()"
+        class="relative flex flex-0 items-center w-full h-16 px-4 md:px-6 z-49 shadow dark:shadow-none dark:border-b bg-card dark:bg-transparent print:hidden">
+        <!-- Navigation toggle button -->
+        <button mat-icon-button (click)="toggleNavigation('mainNavigation')">
+            <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+        </button>
+        <!-- Components -->
+        <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
+            <div class="rounded-full py-3 px-6" *ngIf="user">{{user?.getFullName() }}</div>
+
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon svgIcon="heroicons_outline:user-circle"></mat-icon>
+            </button>
+
+            <!--Right User Menu-->
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                    <span class="flex flex-col leading-none" *ngIf="user">
+                        <span>Online como:</span>
+                        <span class="mt-1.5 text-md font-medium">{{user.email}}</span>
+                    </span>
+                </button>
+                <mat-divider class="my-2"></mat-divider>
+                <button mat-menu-item (click)="profile()">
+                    <mat-icon [svgIcon]="'heroicons_outline:user'"></mat-icon>
+                    <span>Perfil</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon [svgIcon]="'heroicons_outline:cog'"></mat-icon>
+                    <span>Configurações</span>
+                </button>
+                <button mat-menu-item [matMenuTriggerFor]="userStatus">
+                    <mat-icon [svgIcon]="'heroicons_outline:dots-circle-horizontal'"></mat-icon>
+                    <span>Status</span>
+                </button>
+                <mat-divider class="my-2"></mat-divider>
+                <button mat-menu-item (click)="signOut()">
+                    <mat-icon [svgIcon]="'heroicons_outline:logout'"></mat-icon>
+                    <span>Desconectar</span>
+                </button>
+            </mat-menu>
+        </div>
+        <mat-menu class="user-status-menu" #userStatus="matMenu">
+            <button mat-menu-item (click)="updateUserStatus('online')">
+                <span class="w-4 h-4 mr-3 rounded-full bg-green-500"></span>
+                <span>Online</span>
+            </button>
+            <button mat-menu-item (click)="updateUserStatus('away')">
+                <span class="w-4 h-4 mr-3 rounded-full bg-amber-500"></span>
+                <span>Away</span>
+            </button>
+            <button mat-menu-item (click)="updateUserStatus('busy')">
+                <span class="w-4 h-4 mr-3 rounded-full bg-red-500"></span>
+                <span>Busy</span>
+            </button>
+            <button mat-menu-item (click)="updateUserStatus('not-visible')">
+                <span class="w-4 h-4 mr-3 rounded-full bg-gray-400"></span>
+                <span>Invisible</span>
+            </button>
+        </mat-menu>
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col flex-auto">
+        <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
+             Otherwise, layout changes won't be registered and the view won't be updated! -->
+        <router-outlet *ngIf="true"></router-outlet>
+    </div>
+
+    <!-- Footer -->
+    <div *ngIf="toAuth()"
+        class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
+        <span class="font-medium text-secondary">EuSaúde Evo &copy; {{currentYear}}</span>
+    </div>
+
+</div>

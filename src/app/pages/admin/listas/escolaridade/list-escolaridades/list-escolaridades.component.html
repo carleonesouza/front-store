@@ -1,0 +1,13 @@
+<app-list-items
+[items$]= "escolaridades$"
+[listCount]="escolaridadeCount"
+[listName]="'Escolaridade'"
+[listNames]="'Escolaridades'"
+[itemNome]="'escolaridade'"
+[pageSlice]="escolaridades"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(searchItem)="searchItem($event)"
+(addItem)="createEscolaridade($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>

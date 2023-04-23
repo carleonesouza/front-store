@@ -1,0 +1,12 @@
+<app-list-items
+[items$]= "estados$"
+[listCount]="estadoCount"
+[listName]="'Estado'"
+[listNames]="'Estados'"
+[itemNome]="'nome'"
+[pageSlice]="estados"
+[itemId]="'recId'"
+[totalElements]="totalElements"
+(addItem)="createEstado($event)"
+(eventPages)="onPageChange($event)" 
+></app-list-items>
